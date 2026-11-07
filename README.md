@@ -4,21 +4,24 @@
 
 ---
 
-## 🌟 What Makes The Oasis Different?
+## 🌟 Live Public & Commercial-Friendly APIs Connected
 
-- **🌴 People & Good Vibes Only:**
-  - Designed around cinema, music, gaming, weekend plans, and wholesome memes.
-  - Interactive **Cheers & Confetti** celebrations on likes and connections.
-  - Category filters: `🎵 Music & Drops`, `🍿 Cinema & Shows`, `🎮 Gaming Den`, and `🎭 Memes & Laughs`.
-- **📻 The Oasis Lounge Radio:**
-  - Built-in lounge vibe player card with one-click cheers and community tunes.
-- **🔐 Google Sign-In with Firebase Authentication:**
-  - Sign in with your real Google account via one-click popup.
-  - Automatically loads your Google profile photo, display name, and handle.
-- **⚡ Real-Time Cloud Firestore Sync:**
-  - Share vibes, memes, and photos that broadcast across all active visitors live without refreshing.
-- **🎮 Instant Demo Mode:**
-  - Works immediately out of the box in Chrome using simulated Google login and local storage until you connect your Firebase keys.
+1. **🎵 Apple Music Live API (Attach 30s Playable Samples):**
+   * **In the Compose Box:** Click **"Attach Apple Music Sample"** to search any artist or song worldwide.
+   * **In the Live Feed:** Renders an embedded Apple Music card with official high-res album cover, song/artist info, and an interactive **Play 30s Sample** button with an animated audio equalizer!
+   * **Oasis Live Radio:** Streams trending hits continuously in the right sidebar.
+   * **Commercial / Profit Potential:** Eligible for the official **Apple Services Affiliate Program** to earn commissions on song streams and album sales.
+
+2. **🧠 Wikipedia Knowledge API ("On This Day"):**
+   * Connects to the official **Wikimedia REST API (CC BY-SA 4.0 / Open Knowledge)**.
+   * Automatically pulls fascinating historical entertainment, pop culture, and science milestones from this exact day in history.
+   * **"Share to Lounge" Button:** One click attaches the live knowledge drop into a post for community discussion.
+
+3. **🎮 FreeToGame / GamerPower API (Gaming Freebies):**
+   * Real-time feed of 100% free games and DLC drops on Steam, Epic Games, and PlayStation.
+
+4. **☀️ Open-Meteo Weather API (CC-BY 4.0):**
+   * Live temperature and chill vibe rating in the header badge.
 
 ---
 
@@ -44,14 +47,11 @@ Then visit `http://localhost:3000` in Chrome.
 Your repository is connected to:
 🔗 **https://github.com/tylerrnmn/pulse-social**
 
-To update your live site:
+To push your latest updates live:
 ```powershell
 cd C:\Users\Tyler\.gemini\antigravity\scratch\x-clone-firebase
-git add .
-git commit -m "feat: rebrand to The Oasis social lounge"
-git push -u origin main
+git push origin main
 ```
 
 Your live site link:
 🌴 **https://tylerrnmn.github.io/pulse-social/**
-*(Give GitHub Pages 1–2 minutes after pushing to complete the build!)*
