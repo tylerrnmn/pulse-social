@@ -3,15 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pulse | X Clone with Firebase & Google Auth</title>
+  <title>The Oasis 🌴 | The Fun, People-First Social Lounge</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Google Fonts: Inter -->
+  <!-- Canvas Confetti for Fun Interactions -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -19,19 +21,21 @@
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Outfit"', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            x: {
-              bg: '#000000',
-              card: '#16181c',
-              border: '#2f3336',
-              text: '#e7e9ea',
-              muted: '#71767b',
-              blue: '#1d9bf0',
-              hover: '#181818',
-              accent: '#00ba7c',
-              red: '#f91880'
+            oasis: {
+              bg: '#070C16',
+              card: '#0F1626',
+              border: '#1E293B',
+              text: '#F1F5F9',
+              muted: '#94A3B8',
+              teal: '#06B6D4',
+              emerald: '#10B981',
+              sunset: '#F43F5E',
+              amber: '#F59E0B',
+              purple: '#8B5CF6'
             }
           }
         }
@@ -40,126 +44,183 @@
   </script>
   <style>
     body {
-      background-color: #000000;
-      color: #e7e9ea;
+      background-color: #070C16;
+      color: #F1F5F9;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(244, 63, 94, 0.07) 0%, transparent 40%);
+      background-attachment: fixed;
     }
     textarea:focus {
       outline: none;
     }
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
+    .gradient-oasis {
+      background: linear-gradient(135deg, #06B6D4 0%, #10B981 50%, #F59E0B 100%);
     }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background-color: #2f3336;
-      border-radius: 9999px;
+    .gradient-sunset {
+      background: linear-gradient(135deg, #F43F5E 0%, #F59E0B 100%);
+    }
+    .text-gradient-oasis {
+      background: linear-gradient(135deg, #22D3EE 0%, #34D399 50%, #FBBF24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .vibe-pill-active {
+      background: linear-gradient(135deg, #06B6D4 0%, #10B981 100%);
+      color: #000;
+      font-weight: 700;
+      border-color: transparent;
     }
   </style>
 </head>
-<body class="min-h-screen font-sans selection:bg-x-blue selection:text-white flex justify-center">
+<body class="min-h-screen font-sans selection:bg-oasis-teal selection:text-black flex justify-center">
 
   <!-- Main Grid Wrapper -->
   <div class="w-full max-w-7xl flex justify-between min-h-screen">
 
     <!-- ============================================== -->
-    <!-- LEFT SIDEBAR NAVIGATION (Col 1) -->
+    <!-- LEFT SIDEBAR: THE OASIS LOUNGE NAV (Col 1) -->
     <!-- ============================================== -->
-    <header class="w-20 xl:w-64 flex flex-col justify-between py-3 px-2 sm:px-4 border-r border-x-border sticky top-0 h-screen shrink-0">
-      <div class="space-y-2">
-        <!-- Logo -->
-        <a href="#" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-white/10 transition text-white">
-          <svg viewBox="0 0 24 24" aria-hidden="true" class="w-7 h-7 fill-current">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 24.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-          </svg>
+    <header class="w-20 xl:w-64 flex flex-col justify-between py-4 px-2 sm:px-4 border-r border-oasis-border/80 sticky top-0 h-screen shrink-0">
+      <div class="space-y-4">
+        <!-- The Oasis Logo -->
+        <a href="#" class="flex items-center space-x-3 p-2 rounded-2xl hover:bg-white/5 transition group">
+          <div class="w-11 h-11 rounded-2xl gradient-oasis flex items-center justify-center shadow-lg shadow-oasis-teal/20 group-hover:scale-105 transition-transform">
+            <span class="text-2xl">🌴</span>
+          </div>
+          <div class="hidden xl:block">
+            <span class="font-display font-extrabold text-2xl tracking-tight text-white block leading-none">The Oasis</span>
+            <span class="text-[11px] font-mono tracking-widest uppercase text-oasis-teal font-semibold">Good Vibes Only</span>
+          </div>
         </a>
 
         <!-- Navigation Links -->
-        <nav class="space-y-1 font-semibold text-lg">
-          <a href="#" class="flex items-center space-x-4 p-3 rounded-full hover:bg-white/10 transition text-white group">
-            <i data-lucide="home" class="w-6 h-6"></i>
-            <span class="hidden xl:inline">Home</span>
+        <nav class="space-y-1 font-semibold text-base">
+          <a href="#" onclick="filterVibe('All')" class="flex items-center space-x-4 p-3 rounded-2xl bg-white/5 text-white hover:bg-white/10 transition group">
+            <i data-lucide="compass" class="w-6 h-6 text-oasis-teal"></i>
+            <span class="hidden xl:inline font-display text-lg">The Lounge</span>
           </a>
-          <a href="#" class="flex items-center space-x-4 p-3 rounded-full hover:bg-white/10 transition text-x-muted hover:text-white group">
-            <i data-lucide="hash" class="w-6 h-6"></i>
-            <span class="hidden xl:inline">Explore</span>
+          <a href="#" onclick="filterVibe('🎵 Music')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
+            <i data-lucide="headphones" class="w-6 h-6 group-hover:text-oasis-sunset transition"></i>
+            <span class="hidden xl:inline">Music & Jams</span>
           </a>
-          <a href="#" class="flex items-center space-x-4 p-3 rounded-full hover:bg-white/10 transition text-x-muted hover:text-white group">
-            <i data-lucide="bell" class="w-6 h-6"></i>
-            <span class="hidden xl:inline">Notifications</span>
+          <a href="#" onclick="filterVibe('🍿 Movies & TV')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
+            <i data-lucide="film" class="w-6 h-6 group-hover:text-oasis-amber transition"></i>
+            <span class="hidden xl:inline">Cinema & TV</span>
           </a>
-          <a href="#" class="flex items-center space-x-4 p-3 rounded-full hover:bg-white/10 transition text-x-muted hover:text-white group">
-            <i data-lucide="bookmark" class="w-6 h-6"></i>
-            <span class="hidden xl:inline">Bookmarks</span>
+          <a href="#" onclick="filterVibe('🎮 Gaming')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
+            <i data-lucide="gamepad-2" class="w-6 h-6 group-hover:text-oasis-purple transition"></i>
+            <span class="hidden xl:inline">Gaming Den</span>
           </a>
-          <button onclick="openConfigModal()" class="w-full flex items-center space-x-4 p-3 rounded-full hover:bg-white/10 transition text-x-muted hover:text-white group text-left">
+          <a href="#" onclick="filterVibe('🎭 Memes & Fun')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
+            <i data-lucide="sparkles" class="w-6 h-6 group-hover:text-oasis-emerald transition"></i>
+            <span class="hidden xl:inline">Memes & Laughs</span>
+          </a>
+          <button onclick="openConfigModal()" class="w-full flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group text-left">
             <i data-lucide="settings" class="w-6 h-6"></i>
-            <span class="hidden xl:inline">Firebase Setup</span>
+            <span class="hidden xl:inline">Firebase Link</span>
           </button>
         </nav>
 
-        <!-- Big Post Button -->
-        <button onclick="focusCompose()" class="w-12 h-12 xl:w-full xl:h-12 bg-x-blue hover:bg-sky-500 font-bold text-white rounded-full flex items-center justify-center transition shadow-md mt-4">
-          <i data-lucide="feather" class="w-5 h-5 xl:hidden"></i>
-          <span class="hidden xl:inline text-base">Post</span>
+        <!-- Share Vibe Button -->
+        <button onclick="focusCompose()" class="w-12 h-12 xl:w-full xl:h-12 gradient-oasis hover:opacity-95 font-display font-bold text-black rounded-2xl flex items-center justify-center transition shadow-lg shadow-oasis-teal/20 mt-4">
+          <i data-lucide="send" class="w-5 h-5 xl:hidden"></i>
+          <span class="hidden xl:inline text-base">Share a Vibe 🌴</span>
         </button>
       </div>
 
       <!-- User Profile / Auth Area (Bottom of Left Column) -->
-      <div id="auth-container" class="relative">
+      <div id="auth-container" class="relative pt-4 border-t border-oasis-border/60">
         <!-- Rendered dynamically via JavaScript -->
       </div>
     </header>
 
 
     <!-- ============================================== -->
-    <!-- CENTER COLUMN: FEED & COMPOSE (Col 2) -->
+    <!-- CENTER COLUMN: THE MAIN LOUNGE FEED (Col 2) -->
     <!-- ============================================== -->
-    <main class="flex-1 min-h-screen border-r border-x-border max-w-2xl w-full">
+    <main class="flex-1 min-h-screen border-r border-oasis-border/80 max-w-2xl w-full">
       
-      <!-- Top Sticky Header Tabs -->
-      <div class="sticky top-0 z-30 backdrop-blur-md bg-black/80 border-b border-x-border flex items-center justify-between">
-        <div class="flex-1 flex">
-          <button class="flex-1 py-3.5 text-center font-bold text-sm text-white border-b-4 border-x-blue hover:bg-white/5 transition">
-            For you
-          </button>
-          <button class="flex-1 py-3.5 text-center font-medium text-sm text-x-muted hover:text-white hover:bg-white/5 transition">
-            Following
-          </button>
-        </div>
-        <div class="px-4">
-          <span id="backend-status-pill" class="text-[11px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span id="backend-status-text">Demo Mode (Active)</span>
+      <!-- Top Sticky Header Tabs & Vibes -->
+      <div class="sticky top-0 z-30 backdrop-blur-xl bg-oasis-bg/85 border-b border-oasis-border/80">
+        <div class="flex items-center justify-between px-4 py-3.5 border-b border-oasis-border/40">
+          <div>
+            <h1 class="font-display font-extrabold text-xl text-white flex items-center gap-2">
+              <span>The Oasis Lounge</span>
+              <span class="text-xs bg-oasis-teal/10 text-oasis-teal font-mono border border-oasis-teal/30 px-2 py-0.5 rounded-full font-normal">Live</span>
+            </h1>
+            <p class="text-xs text-oasis-muted">People, entertainment, memes, and good vibes.</p>
+          </div>
+          
+          <span id="backend-status-pill" class="text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="backend-status-text">Demo Lounge</span>
           </span>
+        </div>
+
+        <!-- Entertainment / Vibe Category Filter Pills -->
+        <div class="flex items-center space-x-2 px-4 py-2.5 overflow-x-auto custom-scrollbar text-xs">
+          <button onclick="filterVibe('All')" id="vibe-btn-All" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-white hover:border-oasis-teal transition shrink-0 vibe-pill-active">
+            🌴 All Vibes
+          </button>
+          <button onclick="filterVibe('🎵 Music')" id="vibe-btn-music" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-sunset transition shrink-0">
+            🎵 Music & Drops
+          </button>
+          <button onclick="filterVibe('🍿 Movies & TV')" id="vibe-btn-movies" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-amber transition shrink-0">
+            🍿 Cinema & Shows
+          </button>
+          <button onclick="filterVibe('🎮 Gaming')" id="vibe-btn-gaming" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-purple transition shrink-0">
+            🎮 Gaming & Clips
+          </button>
+          <button onclick="filterVibe('🎭 Memes & Fun')" id="vibe-btn-memes" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-emerald transition shrink-0">
+            🎭 Memes & Laughs
+          </button>
         </div>
       </div>
 
-      <!-- Compose Tweet Box -->
-      <div class="p-4 border-b border-x-border flex space-x-3">
-        <img id="compose-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120" alt="Avatar" class="w-10 h-10 rounded-full object-cover">
+      <!-- Compose "Drop a Vibe" Box -->
+      <div class="p-4 sm:p-5 border-b border-oasis-border/80 bg-oasis-card/30 flex space-x-4">
+        <img id="compose-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120" alt="Avatar" class="w-11 h-11 rounded-2xl object-cover ring-2 ring-oasis-teal/40">
         
         <div class="flex-1">
-          <textarea id="post-input" rows="2" placeholder="What is happening?!" class="w-full bg-transparent text-white placeholder-x-muted text-lg resize-none pt-1" oninput="handleInput(this)"></textarea>
+          <!-- Category Tag Selector -->
+          <div class="flex items-center space-x-2 mb-2">
+            <span class="text-[11px] font-mono text-oasis-muted uppercase tracking-wider">Tag your vibe:</span>
+            <select id="post-category" class="bg-oasis-bg border border-oasis-border text-oasis-teal text-xs rounded-xl px-2.5 py-1 font-semibold outline-none focus:border-oasis-teal">
+              <option value="🌴 General Vibe">🌴 General Vibe</option>
+              <option value="🎵 Music">🎵 Music & Drops</option>
+              <option value="🍿 Movies & TV">🍿 Movies & Shows</option>
+              <option value="🎮 Gaming">🎮 Gaming</option>
+              <option value="🎭 Memes & Fun">🎭 Memes & Fun</option>
+              <option value="🏖️ Weekend Plans">🏖️ Weekend Plans</option>
+            </select>
+          </div>
+
+          <textarea id="post-input" rows="2" placeholder="What's making you smile, laugh, or jam today?! 🌴✨" class="w-full bg-transparent text-white placeholder-oasis-muted text-base resize-none pt-1" oninput="handleInput(this)"></textarea>
           
           <!-- Image URL Input (Collapsible) -->
           <div id="image-url-container" class="hidden mb-3">
-            <input type="url" id="post-image-url" placeholder="Paste optional image or GIF URL..." class="w-full bg-x-card border border-x-border rounded-xl px-3 py-1.5 text-sm text-white placeholder-x-muted focus:border-x-blue outline-none">
+            <input type="url" id="post-image-url" placeholder="Paste an image or GIF URL (e.g. from Giphy, Imgur, or Unsplash)..." class="w-full bg-oasis-bg border border-oasis-border rounded-xl px-3 py-2 text-xs text-white placeholder-oasis-muted focus:border-oasis-teal outline-none">
           </div>
 
           <!-- Compose Toolbar -->
-          <div class="flex items-center justify-between pt-2 border-t border-x-border/40">
-            <div class="flex items-center space-x-1 text-x-blue">
-              <button onclick="toggleImageInput()" title="Add Image URL" class="p-2 rounded-full hover:bg-x-blue/10 transition">
+          <div class="flex items-center justify-between pt-3 border-t border-oasis-border/40">
+            <div class="flex items-center space-x-1.5 text-oasis-teal">
+              <button onclick="toggleImageInput()" title="Add Picture/GIF" class="p-2 rounded-xl hover:bg-oasis-teal/10 transition flex items-center space-x-1 text-xs font-semibold">
                 <i data-lucide="image" class="w-4 h-4"></i>
+                <span class="hidden sm:inline">Photo / GIF</span>
               </button>
-              <button onclick="insertEmoji('🔥')" title="Flame" class="p-2 rounded-full hover:bg-x-blue/10 transition text-sm">🔥</button>
-              <button onclick="insertEmoji('🚀')" title="Rocket" class="p-2 rounded-full hover:bg-x-blue/10 transition text-sm">🚀</button>
-              <button onclick="insertEmoji('💡')" title="Idea" class="p-2 rounded-full hover:bg-x-blue/10 transition text-sm">💡</button>
+              <button onclick="insertEmoji('🎉')" title="Party" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🎉</button>
+              <button onclick="insertEmoji('🔥')" title="Fire" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🔥</button>
+              <button onclick="insertEmoji('🍿')" title="Popcorn" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🍿</button>
+              <button onclick="insertEmoji('🌴')" title="Palm" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🌴</button>
+              <button onclick="insertEmoji('😂')" title="Laugh" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">😂</button>
             </div>
 
             <div class="flex items-center space-x-3">
-              <span id="char-counter" class="text-xs font-mono text-x-muted">280</span>
-              <button id="btn-submit-post" onclick="submitPost()" class="bg-x-blue hover:bg-sky-500 font-bold text-white text-sm px-4 py-1.5 rounded-full transition disabled:opacity-50 disabled:cursor-not-allowed">
-                Post
+              <span id="char-counter" class="text-xs font-mono text-oasis-muted">280</span>
+              <button id="btn-submit-post" onclick="submitPost()" class="gradient-oasis hover:opacity-90 font-display font-bold text-black text-sm px-5 py-2 rounded-xl transition shadow-md shadow-oasis-teal/20">
+                Share 🌴
               </button>
             </div>
           </div>
@@ -167,97 +228,108 @@
       </div>
 
       <!-- Feed Container -->
-      <div id="feed-container" class="divide-y divide-x-border">
+      <div id="feed-container" class="divide-y divide-oasis-border/60">
         <!-- Posts will be rendered here dynamically -->
       </div>
     </main>
 
 
     <!-- ============================================== -->
-    <!-- RIGHT SIDEBAR: WIDGETS & SEARCH (Col 3) -->
+    <!-- RIGHT SIDEBAR: WHAT'S POPPING & MUSIC (Col 3) -->
     <!-- ============================================== -->
-    <aside class="hidden lg:block w-80 xl:w-96 p-4 space-y-4 shrink-0">
+    <aside class="hidden lg:block w-80 xl:w-96 p-4 space-y-5 shrink-0">
       
       <!-- Search Bar -->
       <div class="relative">
-        <i data-lucide="search" class="w-4 h-4 absolute left-4 top-3.5 text-x-muted"></i>
-        <input type="text" placeholder="Search Pulse" class="w-full bg-x-card border border-transparent focus:border-x-blue focus:bg-black text-sm text-white placeholder-x-muted rounded-full pl-11 pr-4 py-2.5 transition outline-none">
+        <i data-lucide="search" class="w-4 h-4 absolute left-4 top-3.5 text-oasis-muted"></i>
+        <input type="text" id="search-input" oninput="handleSearch(this.value)" placeholder="Search entertainment, music, memes..." class="w-full bg-oasis-card border border-oasis-border/60 focus:border-oasis-teal focus:bg-black/60 text-sm text-white placeholder-oasis-muted rounded-2xl pl-11 pr-4 py-2.5 transition outline-none">
       </div>
 
-      <!-- Firebase Setup Card -->
-      <div class="bg-x-card border border-x-border rounded-2xl p-4">
-        <div class="flex items-center space-x-2 text-amber-400 font-bold text-sm mb-1">
-          <i data-lucide="flame" class="w-4 h-4"></i>
-          <span>Firebase Integration</span>
+      <!-- Oasis Vibe Radio Card -->
+      <div class="gradient-sunset p-[1px] rounded-3xl shadow-xl shadow-oasis-sunset/10">
+        <div class="bg-oasis-card rounded-3xl p-4 sm:p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs uppercase font-mono font-bold text-oasis-sunset tracking-wider flex items-center gap-1.5">
+              <i data-lucide="radio" class="w-4 h-4 animate-pulse"></i>
+              <span>Oasis Lounge Vibe</span>
+            </span>
+            <span class="text-[10px] bg-oasis-sunset/20 text-pink-300 font-mono px-2 py-0.5 rounded-full font-bold">Now Playing</span>
+          </div>
+          <h4 class="font-display font-bold text-white text-base">"Midnight Sunset in Miami"</h4>
+          <p class="text-xs text-oasis-muted mb-3">Chill Lo-Fi, Neo-Soul & Tropical Beats</p>
+          <div class="flex items-center space-x-2">
+            <button onclick="triggerConfetti()" class="flex-1 py-2 px-3 bg-white/10 hover:bg-white/15 text-white font-display font-bold text-xs rounded-xl transition flex items-center justify-center space-x-1.5">
+              <span>🎉 Send Cheers</span>
+            </button>
+            <button onclick="insertEmoji('🎵')" class="py-2 px-3 bg-white/5 hover:bg-white/10 text-oasis-teal text-xs rounded-xl transition">
+              🎧 Tune In
+            </button>
+          </div>
         </div>
-        <p class="text-xs text-x-muted leading-relaxed mb-3">
-          Sign in using real Google OAuth and store live posts in Cloud Firestore.
-        </p>
-        <button onclick="openConfigModal()" class="w-full py-2 px-3 bg-white/10 hover:bg-white/15 text-white font-semibold text-xs rounded-xl border border-white/10 transition flex items-center justify-center space-x-1.5">
-          <i data-lucide="key" class="w-3.5 h-3.5"></i>
-          <span>Configure Firebase Keys</span>
-        </button>
       </div>
 
-      <!-- Trending Section -->
-      <div class="bg-x-card border border-x-border rounded-2xl p-4 space-y-3">
-        <h3 class="font-bold text-base text-white">What's happening</h3>
+      <!-- Trending Entertainment & Pop Culture -->
+      <div class="bg-oasis-card border border-oasis-border/70 rounded-3xl p-5 space-y-4">
+        <h3 class="font-display font-bold text-base text-white flex items-center gap-2">
+          <i data-lucide="flame" class="w-4 h-4 text-oasis-amber"></i>
+          <span>What's Popping in Culture</span>
+        </h3>
         
         <div class="space-y-3 text-xs">
-          <div class="hover:bg-white/5 p-2 rounded-xl transition cursor-pointer">
-            <span class="text-x-muted">Technology · Trending</span>
-            <div class="font-bold text-white text-sm mt-0.5">#GoogleFirebase</div>
-            <span class="text-x-muted">42.8K posts</span>
+          <div onclick="filterSearch('#SpiderVerse')" class="hover:bg-white/5 p-2.5 rounded-2xl transition cursor-pointer">
+            <span class="text-oasis-muted text-[11px]">Cinema & Animation · Trending</span>
+            <div class="font-bold text-white text-sm mt-0.5">#BeyondTheSpiderVerse</div>
+            <span class="text-oasis-muted">84.2K people talking</span>
           </div>
-          <div class="hover:bg-white/5 p-2 rounded-xl transition cursor-pointer">
-            <span class="text-x-muted">Web Development · Trending</span>
-            <div class="font-bold text-white text-sm mt-0.5">#TailwindCSS</div>
-            <span class="text-x-muted">19.4K posts</span>
+          <div onclick="filterSearch('#GrandTheftAuto6')" class="hover:bg-white/5 p-2.5 rounded-2xl transition cursor-pointer">
+            <span class="text-oasis-muted text-[11px]">Gaming & Entertainment · Viral</span>
+            <div class="font-bold text-white text-sm mt-0.5">#GTA6ViceCity</div>
+            <span class="text-oasis-muted">142.9K vibes shared</span>
           </div>
-          <div class="hover:bg-white/5 p-2 rounded-xl transition cursor-pointer">
-            <span class="text-x-muted">Markets · Trending</span>
-            <div class="font-bold text-white text-sm mt-0.5">#KalshiEvents</div>
-            <span class="text-x-muted">12.1K posts</span>
+          <div onclick="filterSearch('#Coachella')" class="hover:bg-white/5 p-2.5 rounded-2xl transition cursor-pointer">
+            <span class="text-oasis-muted text-[11px]">Music & Festivals · Hot</span>
+            <div class="font-bold text-white text-sm mt-0.5">#WeekendHeadliners</div>
+            <span class="text-oasis-muted">38.7K tracks added</span>
           </div>
         </div>
       </div>
 
-      <!-- Who to Follow -->
-      <div class="bg-x-card border border-x-border rounded-2xl p-4 space-y-3">
-        <h3 class="font-bold text-base text-white">Who to follow</h3>
+      <!-- Fun People to Hang With -->
+      <div class="bg-oasis-card border border-oasis-border/70 rounded-3xl p-5 space-y-4">
+        <h3 class="font-display font-bold text-base text-white flex items-center gap-2">
+          <i data-lucide="users" class="w-4 h-4 text-oasis-teal"></i>
+          <span>People with Great Vibes</span>
+        </h3>
         
         <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-2.5">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&h=80" class="w-9 h-9 rounded-full object-cover">
+          <div class="flex items-center space-x-3">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&h=100" class="w-10 h-10 rounded-2xl object-cover ring-2 ring-pink-500/30">
             <div>
-              <div class="font-bold text-xs text-white">Sarah Jenkins</div>
-              <div class="text-[11px] text-x-muted">@sjenkins</div>
+              <div class="font-bold text-xs text-white">Maya Lin 🎨</div>
+              <div class="text-[11px] text-oasis-muted">Film reviewer & animator</div>
             </div>
           </div>
-          <button onclick="toggleFollow(this)" class="px-3 py-1 bg-white hover:bg-gray-200 text-black font-bold text-xs rounded-full transition">
-            Follow
+          <button onclick="toggleFollow(this)" class="px-3 py-1.5 gradient-oasis text-black font-display font-bold text-xs rounded-xl hover:opacity-90 transition">
+            Connect
           </button>
         </div>
 
         <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-2.5">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&h=80" class="w-9 h-9 rounded-full object-cover">
+          <div class="flex items-center space-x-3">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=100&h=100" class="w-10 h-10 rounded-2xl object-cover ring-2 ring-emerald-500/30">
             <div>
-              <div class="font-bold text-xs text-white">Alex Rivera</div>
-              <div class="text-[11px] text-x-muted">@arivera</div>
+              <div class="font-bold text-xs text-white">Kai Chen 🎧</div>
+              <div class="text-[11px] text-oasis-muted">Indie DJ & vinyl hunter</div>
             </div>
           </div>
-          <button onclick="toggleFollow(this)" class="px-3 py-1 bg-white hover:bg-gray-200 text-black font-bold text-xs rounded-full transition">
-            Follow
+          <button onclick="toggleFollow(this)" class="px-3 py-1.5 gradient-oasis text-black font-display font-bold text-xs rounded-xl hover:opacity-90 transition">
+            Connect
           </button>
         </div>
       </div>
 
-      <div class="text-[11px] text-x-muted space-x-2 px-2">
-        <a href="#" class="hover:underline">Terms of Service</a>
-        <a href="#" class="hover:underline">Privacy Policy</a>
-        <a href="#" class="hover:underline">Cookie Policy</a>
-        <span>© 2026 Pulse Corp.</span>
+      <div class="text-[11px] text-oasis-muted space-x-2 px-2 text-center">
+        <span>🌴 The Oasis — Your Escape from the Noise</span>
       </div>
     </aside>
 
@@ -267,54 +339,44 @@
   <!-- ============================================== -->
   <!-- FIREBASE CONFIG MODAL -->
   <!-- ============================================== -->
-  <div id="config-modal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-x-card border border-x-border w-full max-w-lg rounded-3xl p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between pb-3 border-b border-x-border">
-        <div class="flex items-center space-x-2">
-          <i data-lucide="flame" class="w-5 h-5 text-amber-400"></i>
-          <h3 class="font-bold text-lg text-white">Connect Your Firebase Project</h3>
+  <div id="config-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-oasis-card border border-oasis-border w-full max-w-lg rounded-3xl p-6 sm:p-7 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-oasis-border">
+        <div class="flex items-center space-x-2.5">
+          <span class="text-2xl">🌴</span>
+          <h3 class="font-display font-bold text-xl text-white">Connect Firebase to The Oasis</h3>
         </div>
-        <button onclick="closeConfigModal()" class="text-x-muted hover:text-white p-1 rounded-full hover:bg-white/10">
+        <button onclick="closeConfigModal()" class="text-oasis-muted hover:text-white p-1 rounded-full hover:bg-white/10">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <p class="text-xs text-x-muted leading-relaxed">
-        To use live Google OAuth and Firestore, paste your Firebase config below. If left empty, Pulse will operate in <strong>Instant Demo Mode</strong>.
+      <p class="text-xs text-oasis-muted leading-relaxed">
+        Connect your real Google account and Cloud Firestore. If left blank, you can use <strong>Instant Demo Mode</strong> to test all posting, liking, and animations.
       </p>
 
       <div class="space-y-3 text-xs">
         <div>
           <label class="block text-gray-400 mb-1 font-mono">apiKey</label>
-          <input type="text" id="cfg-apiKey" placeholder="AIzaSy..." class="w-full bg-black border border-x-border rounded-xl px-3 py-2 text-white font-mono focus:border-x-blue outline-none">
+          <input type="text" id="cfg-apiKey" placeholder="AIzaSy..." class="w-full bg-black/50 border border-oasis-border rounded-xl px-3 py-2 text-white font-mono focus:border-oasis-teal outline-none">
         </div>
         <div>
           <label class="block text-gray-400 mb-1 font-mono">authDomain</label>
-          <input type="text" id="cfg-authDomain" placeholder="your-app.firebaseapp.com" class="w-full bg-black border border-x-border rounded-xl px-3 py-2 text-white font-mono focus:border-x-blue outline-none">
+          <input type="text" id="cfg-authDomain" placeholder="your-app.firebaseapp.com" class="w-full bg-black/50 border border-oasis-border rounded-xl px-3 py-2 text-white font-mono focus:border-oasis-teal outline-none">
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-gray-400 mb-1 font-mono">projectId</label>
-            <input type="text" id="cfg-projectId" placeholder="your-project-id" class="w-full bg-black border border-x-border rounded-xl px-3 py-2 text-white font-mono focus:border-x-blue outline-none">
-          </div>
-          <div>
-            <label class="block text-gray-400 mb-1 font-mono">storageBucket</label>
-            <input type="text" id="cfg-storageBucket" placeholder="your-app.appspot.com" class="w-full bg-black border border-x-border rounded-xl px-3 py-2 text-white font-mono focus:border-x-blue outline-none">
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-gray-400 mb-1 font-mono">messagingSenderId</label>
-            <input type="text" id="cfg-messagingSenderId" placeholder="1234567890" class="w-full bg-black border border-x-border rounded-xl px-3 py-2 text-white font-mono focus:border-x-blue outline-none">
+            <input type="text" id="cfg-projectId" placeholder="your-project-id" class="w-full bg-black/50 border border-oasis-border rounded-xl px-3 py-2 text-white font-mono focus:border-oasis-teal outline-none">
           </div>
           <div>
             <label class="block text-gray-400 mb-1 font-mono">appId</label>
-            <input type="text" id="cfg-appId" placeholder="1:123456:web:abcd" class="w-full bg-black border border-x-border rounded-xl px-3 py-2 text-white font-mono focus:border-x-blue outline-none">
+            <input type="text" id="cfg-appId" placeholder="1:123456:web:abcd" class="w-full bg-black/50 border border-oasis-border rounded-xl px-3 py-2 text-white font-mono focus:border-oasis-teal outline-none">
           </div>
         </div>
       </div>
 
-      <div class="flex items-center justify-between pt-4 border-t border-x-border">
+      <div class="flex items-center justify-between pt-4 border-t border-oasis-border">
         <button onclick="clearFirebaseConfig()" class="text-xs text-red-400 hover:text-red-300">
           Reset to Demo Mode
         </button>
@@ -322,7 +384,7 @@
           <button onclick="closeConfigModal()" class="px-4 py-2 text-xs font-semibold text-gray-300 hover:text-white rounded-xl bg-white/5 hover:bg-white/10">
             Cancel
           </button>
-          <button onclick="saveFirebaseConfig()" class="px-4 py-2 text-xs font-bold text-black bg-x-blue text-white rounded-xl hover:bg-sky-500 transition">
+          <button onclick="saveFirebaseConfig()" class="px-5 py-2 text-xs font-display font-bold text-black gradient-oasis rounded-xl hover:opacity-90 transition">
             Save & Connect
           </button>
         </div>
@@ -332,7 +394,7 @@
 
 
   <!-- ============================================== -->
-  <!-- APPLICATION SCRIPTS & FIREBASE INTEGRATION -->
+  <!-- APPLICATION SCRIPTS & ENTERTAINMENT LOGIC -->
   <!-- ============================================== -->
   <script type="module">
     // Firebase modular SDK imports
@@ -340,75 +402,98 @@
     import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // Global App State
     let auth = null;
     let db = null;
     let isFirebaseReady = false;
+    let activeFilter = 'All';
 
-    // Current User Profile (defaults to demo user)
+    // Current User Profile (defaults to demo user in The Oasis)
     window.currentUser = {
-      uid: 'demo_user_1',
-      displayName: 'Tyler Dev',
-      handle: 'tyler_dev',
-      photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120',
+      uid: 'oasis_pilot_1',
+      displayName: 'Tyler (Oasis Host) 🌴',
+      handle: 'tylerrnmn',
+      photoURL: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120',
       isLoggedIn: true,
       isDemo: true
     };
 
-    // Seed Posts for initial load or demo mode
-    const defaultPosts = [
+    // Entertainment / Fun / People-Centric Seed Posts
+    const oasisDefaultPosts = [
       {
         id: 'post_1',
+        category: '🎵 Music',
         author: {
-          name: 'Satya Nadella',
-          handle: 'satyanadella',
-          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120'
+          name: 'Chloe Rivera 🎧',
+          handle: 'chloevibes',
+          avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&h=120'
         },
-        text: 'Excited about the pace of innovation in AI and autonomous developer agents. We are moving from copilots to continuous pair-programming workflows.',
-        timestamp: '2h',
-        likes: 1420,
-        retweets: 312,
-        replies: 89,
-        liked: false,
-        retweeted: false
+        text: 'Just heard the acoustic version of the new single and I have chills all over. Nothing beats live instruments in a world full of algorithms. Put on good headphones and listen to this immediately! 🌴✨',
+        image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
+        timestamp: '25m ago',
+        cheers: 248,
+        replies: 34,
+        liked: false
       },
       {
         id: 'post_2',
+        category: '🍿 Movies & TV',
         author: {
-          name: 'Kalshi Markets',
-          handle: 'Kalshi',
-          avatar: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=120&h=120'
+          name: 'Marcus Bell 🍿',
+          handle: 'marcus_cinema',
+          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120'
         },
-        text: 'Fed rate cut odds just moved to 64% after the latest inflation print. You can trade the probability directly on our CFTC-regulated exchange 📈',
-        image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80',
-        timestamp: '4h',
-        likes: 852,
-        retweets: 198,
-        replies: 45,
-        liked: true,
-        retweeted: false
+        text: 'Unpopular opinion: 90-minute comedy movies need to make a massive comeback in movie theaters. We do not need every film to be a 3-hour grim saga! Give me funny dialogues and good popcorn with friends. Who agrees?',
+        timestamp: '1h ago',
+        cheers: 512,
+        replies: 89,
+        liked: true
       },
       {
         id: 'post_3',
+        category: '🎮 Gaming',
         author: {
-          name: 'Elena Rostova',
-          handle: 'erostova',
+          name: 'PixelNomad 🕹️',
+          handle: 'pixelnomad',
+          avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120'
+        },
+        text: 'Finally finished building our island sanctuary in cozy co-op mode tonight with the squad! Here is the sunset view from our treehouse balcony 🌅🏝️',
+        image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80',
+        timestamp: '3h ago',
+        cheers: 730,
+        replies: 56,
+        liked: false
+      },
+      {
+        id: 'post_4',
+        category: '🎭 Memes & Fun',
+        author: {
+          name: 'Samira Gomez 😂',
+          handle: 'samirag',
           avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&h=120'
         },
-        text: 'Just deployed our newest project directly to GitHub Pages with Firebase Google authentication! The modern web stack is genuinely fun to build with again.',
-        timestamp: '6h',
-        likes: 340,
-        retweets: 45,
-        replies: 12,
-        liked: false,
-        retweeted: false
+        text: 'Me at 9:00 PM: "I am going to get 8 full hours of sleep tonight!"\nMe at 2:30 AM: Learning how ancient Roman aqueducts were constructed while eating cereal in the dark.',
+        timestamp: '5h ago',
+        cheers: 1240,
+        replies: 104,
+        liked: true
       }
     ];
 
-    // Local in-memory store for demo mode
-    window.posts = JSON.parse(localStorage.getItem('pulse_posts')) || defaultPosts;
+    window.posts = JSON.parse(localStorage.getItem('oasis_posts')) || oasisDefaultPosts;
 
-    // Initialize Firebase if user stored keys
+    // Confetti Celebration
+    window.triggerConfetti = function() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 75,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#06B6D4', '#10B981', '#F43F5E', '#F59E0B']
+        });
+      }
+    };
+
+    // Initialize Firebase
     function initFirebase() {
       const storedConfig = localStorage.getItem('pulse_firebase_config');
       if (storedConfig) {
@@ -420,25 +505,23 @@
             db = getFirestore(app);
             isFirebaseReady = true;
 
-            // Update UI status pill
-            document.getElementById('backend-status-pill').className = "text-[11px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5";
-            document.getElementById('backend-status-text').innerText = "Firebase Connected";
+            document.getElementById('backend-status-pill').className = "text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5";
+            document.getElementById('backend-status-text').innerText = "Firebase Live";
 
-            // Listen to real auth state
             onAuthStateChanged(auth, (user) => {
               if (user) {
                 window.currentUser = {
                   uid: user.uid,
-                  displayName: user.displayName || 'Anonymous',
-                  handle: (user.email ? user.email.split('@')[0] : 'user').toLowerCase(),
-                  photoURL: user.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120',
+                  displayName: user.displayName || 'Oasis Traveler',
+                  handle: (user.email ? user.email.split('@')[0] : 'oasis_user').toLowerCase(),
+                  photoURL: user.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120',
                   isLoggedIn: true,
                   isDemo: false
                 };
               } else {
                 window.currentUser = {
                   uid: null,
-                  displayName: 'Guest',
+                  displayName: 'Guest Vibe',
                   handle: 'guest',
                   photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120',
                   isLoggedIn: false,
@@ -449,8 +532,7 @@
               updateComposeAvatar();
             });
 
-            // Listen to live Firestore posts
-            const postsQuery = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+            const postsQuery = query(collection(db, "oasis_posts"), orderBy("createdAt", "desc"));
             onSnapshot(postsQuery, (snapshot) => {
               const livePosts = [];
               snapshot.forEach((doc) => {
@@ -461,7 +543,7 @@
                 renderFeed();
               }
             }, (error) => {
-              console.warn("Firestore listener warning (falling back to local):", error);
+              console.warn("Firestore listener warning:", error);
             });
 
             return;
@@ -471,7 +553,6 @@
         }
       }
 
-      // Default: Fallback to Demo Mode
       renderAuthArea();
       renderFeed();
     }
@@ -482,12 +563,14 @@
         const provider = new GoogleAuthProvider();
         try {
           await signInWithPopup(auth, provider);
+          triggerConfetti();
         } catch (error) {
-          alert("Firebase Google Auth Error: " + error.message + "\n\nTip: Make sure you added your domain (e.g. localhost or username.github.io) in Firebase Console > Authentication > Settings > Authorized Domains.");
+          alert("Firebase Google Auth Note: " + error.message + "\n\nTip: Add your domain (e.g. localhost or tylerrnmn.github.io) in Firebase Console > Authentication > Settings > Authorized Domains.");
         }
       } else {
         // Toggle Demo login
         window.currentUser.isLoggedIn = !window.currentUser.isLoggedIn;
+        triggerConfetti();
         renderAuthArea();
         renderFeed();
       }
@@ -509,32 +592,32 @@
 
       if (u.isLoggedIn) {
         container.innerHTML = `
-          <div class="flex items-center justify-between p-2 rounded-full hover:bg-white/10 transition cursor-pointer group">
+          <div class="flex items-center justify-between p-2 rounded-2xl hover:bg-white/5 transition cursor-pointer group">
             <div class="flex items-center space-x-3">
-              <img src="${u.photoURL}" class="w-10 h-10 rounded-full object-cover">
+              <img src="${u.photoURL}" class="w-10 h-10 rounded-2xl object-cover ring-2 ring-oasis-teal/40">
               <div class="hidden xl:block text-left text-xs">
-                <div class="font-bold text-white flex items-center gap-1">
+                <div class="font-display font-bold text-white flex items-center gap-1">
                   <span>${u.displayName}</span>
-                  ${u.isDemo ? '<span class="text-[9px] bg-white/10 text-x-muted px-1 rounded">Demo</span>' : '<i data-lucide="badge-check" class="w-3.5 h-3.5 text-x-blue"></i>'}
+                  ${u.isDemo ? '<span class="text-[9px] bg-oasis-teal/20 text-oasis-teal font-mono px-1 rounded">Host</span>' : '<i data-lucide="sparkles" class="w-3.5 h-3.5 text-oasis-teal"></i>'}
                 </div>
-                <div class="text-x-muted">@${u.handle}</div>
+                <div class="text-oasis-muted">@${u.handle}</div>
               </div>
             </div>
-            <button onclick="handleSignOut()" title="Sign Out" class="hidden xl:block text-x-muted hover:text-red-400 p-1.5 rounded-full hover:bg-white/5 transition">
+            <button onclick="handleSignOut()" title="Sign Out" class="hidden xl:block text-oasis-muted hover:text-red-400 p-1.5 rounded-full hover:bg-white/5 transition">
               <i data-lucide="log-out" class="w-4 h-4"></i>
             </button>
           </div>
         `;
       } else {
         container.innerHTML = `
-          <button onclick="handleGoogleSignIn()" class="w-12 h-12 xl:w-full xl:h-auto py-2.5 px-3 rounded-full bg-white hover:bg-gray-100 text-black font-bold text-xs flex items-center justify-center space-x-2 transition shadow">
+          <button onclick="handleGoogleSignIn()" class="w-12 h-12 xl:w-full xl:h-auto py-3 px-3 rounded-2xl gradient-oasis hover:opacity-90 text-black font-display font-bold text-xs flex items-center justify-center space-x-2 transition shadow-lg">
             <svg class="w-4 h-4" viewBox="0 0 24 24">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              <path fill="#000" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#000" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#000" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#000" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
             </svg>
-            <span class="hidden xl:inline">Sign in with Google</span>
+            <span class="hidden xl:inline">Join with Google</span>
           </button>
         `;
       }
@@ -548,16 +631,18 @@
       }
     }
 
-    // Submit New Post (Firestore or Local)
+    // Submit New Vibe
     window.submitPost = async function() {
       const input = document.getElementById('post-input');
       const text = input.value.trim();
       const imageUrlInput = document.getElementById('post-image-url');
       const imageUrl = imageUrlInput ? imageUrlInput.value.trim() : '';
+      const category = document.getElementById('post-category').value;
 
       if (!text) return;
 
       const newPost = {
+        category: category,
         author: {
           name: window.currentUser.displayName,
           handle: window.currentUser.handle,
@@ -566,33 +651,30 @@
         text: text,
         image: imageUrl || null,
         timestamp: 'Just now',
-        likes: 0,
-        retweets: 0,
+        cheers: 1,
         replies: 0,
-        liked: false,
-        retweeted: false
+        liked: true
       };
 
       if (isFirebaseReady && db) {
         try {
-          await addDoc(collection(db, "posts"), {
+          await addDoc(collection(db, "oasis_posts"), {
             ...newPost,
             createdAt: serverTimestamp()
           });
+          triggerConfetti();
         } catch (e) {
-          console.error("Error writing to Firestore", e);
-          // Fallback locally
+          console.error("Firestore write error, falling back locally", e);
           window.posts.unshift(newPost);
           renderFeed();
         }
       } else {
-        // Save locally in demo mode
         window.posts.unshift(newPost);
-        localStorage.setItem('pulse_posts', JSON.stringify(window.posts));
+        localStorage.setItem('oasis_posts', JSON.stringify(window.posts));
+        triggerConfetti();
         renderFeed();
       }
 
-      // Reset Form
       input.value = '';
       if (imageUrlInput) imageUrlInput.value = '';
       document.getElementById('image-url-container').classList.add('hidden');
@@ -600,69 +682,124 @@
       input.style.height = 'auto';
     };
 
-    // Render the Live Posts Feed
+    // Filter Feed by Vibe
+    window.filterVibe = function(cat) {
+      activeFilter = cat;
+      const buttons = {
+        'All': 'vibe-btn-All',
+        '🎵 Music': 'vibe-btn-music',
+        '🍿 Movies & TV': 'vibe-btn-movies',
+        '🎮 Gaming': 'vibe-btn-gaming',
+        '🎭 Memes & Fun': 'vibe-btn-memes'
+      };
+
+      Object.entries(buttons).forEach(([name, btnId]) => {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+          if (name === cat) {
+            btn.className = "px-3.5 py-1.5 rounded-full border border-transparent text-black font-bold transition shrink-0 vibe-pill-active";
+          } else {
+            btn.className = "px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white transition shrink-0";
+          }
+        }
+      });
+
+      renderFeed();
+    };
+
+    window.filterSearch = function(tag) {
+      document.getElementById('search-input').value = tag;
+      handleSearch(tag);
+    };
+
+    window.handleSearch = function(term) {
+      const q = term.toLowerCase().trim();
+      if (!q) {
+        renderFeed();
+        return;
+      }
+      const filtered = window.posts.filter(p => 
+        p.text.toLowerCase().includes(q) || 
+        p.author.name.toLowerCase().includes(q) ||
+        (p.category && p.category.toLowerCase().includes(q))
+      );
+      renderFeedWithPosts(filtered);
+    };
+
+    // Render Posts
     function renderFeed() {
+      let filtered = window.posts;
+      if (activeFilter !== 'All') {
+        filtered = window.posts.filter(p => p.category === activeFilter);
+      }
+      renderFeedWithPosts(filtered);
+    }
+
+    function renderFeedWithPosts(postsList) {
       const container = document.getElementById('feed-container');
       if (!container) return;
 
-      container.innerHTML = window.posts.map((post, index) => `
-        <article class="p-4 hover:bg-white/[0.02] transition flex space-x-3 cursor-pointer">
-          <img src="${post.author.avatar}" class="w-10 h-10 rounded-full object-cover shrink-0">
+      if (postsList.length === 0) {
+        container.innerHTML = `
+          <div class="p-12 text-center text-oasis-muted space-y-3">
+            <span class="text-4xl">🏝️</span>
+            <div class="font-display font-bold text-lg text-white">No vibes found in this corner yet!</div>
+            <p class="text-xs">Be the first to drop a meme, song, or take here.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = postsList.map((post, index) => `
+        <article class="p-4 sm:p-5 hover:bg-white/[0.02] transition flex space-x-3.5">
+          <img src="${post.author.avatar}" class="w-11 h-11 rounded-2xl object-cover ring-1 ring-oasis-border shrink-0">
           
           <div class="flex-1 min-w-0">
-            <!-- Author Row -->
+            <!-- Author & Category Row -->
             <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-1.5 truncate text-sm">
-                <span class="font-bold text-white hover:underline truncate">${post.author.name}</span>
-                <span class="text-x-muted text-xs">@${post.author.handle}</span>
-                <span class="text-x-muted text-xs">·</span>
-                <span class="text-x-muted text-xs">${post.timestamp}</span>
+              <div class="flex items-center space-x-2 truncate text-sm">
+                <span class="font-display font-bold text-white hover:text-oasis-teal transition truncate">${post.author.name}</span>
+                <span class="text-oasis-muted text-xs">@${post.author.handle}</span>
+                <span class="text-oasis-muted text-xs">·</span>
+                <span class="text-oasis-muted text-xs">${post.timestamp}</span>
               </div>
-              <button class="text-x-muted hover:text-x-blue p-1 rounded-full hover:bg-x-blue/10">
-                <i data-lucide="more-horizontal" class="w-4 h-4"></i>
-              </button>
+              <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-oasis-card border border-oasis-border text-oasis-teal">
+                ${post.category || '🌴 General'}
+              </span>
             </div>
 
             <!-- Post Text Content -->
-            <p class="text-sm text-x-text mt-1 leading-normal whitespace-pre-line">${escapeHTML(post.text)}</p>
+            <p class="text-sm text-oasis-text mt-2 leading-relaxed whitespace-pre-line font-normal">${escapeHTML(post.text)}</p>
 
             <!-- Optional Image -->
             ${post.image ? `
-              <div class="mt-3 rounded-2xl overflow-hidden border border-x-border max-h-96">
+              <div class="mt-3.5 rounded-2xl overflow-hidden border border-oasis-border/80 max-h-96 shadow-lg">
                 <img src="${post.image}" class="w-full h-full object-cover" onerror="this.style.display='none'">
               </div>
             ` : ''}
 
-            <!-- Action Bar (Reply, Repost, Like, Share) -->
-            <div class="flex items-center justify-between text-x-muted text-xs mt-3 max-w-md">
-              <!-- Reply -->
-              <button class="flex items-center space-x-2 hover:text-x-blue transition group">
-                <div class="p-2 rounded-full group-hover:bg-x-blue/10">
-                  <i data-lucide="message-circle" class="w-4 h-4"></i>
-                </div>
-                <span>${post.replies || 0}</span>
-              </button>
-
-              <!-- Repost -->
-              <button onclick="toggleRepost(${index})" class="flex items-center space-x-2 ${post.retweeted ? 'text-x-accent' : 'hover:text-x-accent'} transition group">
-                <div class="p-2 rounded-full group-hover:bg-x-accent/10">
-                  <i data-lucide="repeat-2" class="w-4 h-4"></i>
-                </div>
-                <span>${post.retweets || 0}</span>
-              </button>
-
-              <!-- Like -->
-              <button onclick="toggleLike(${index})" class="flex items-center space-x-2 ${post.liked ? 'text-x-red' : 'hover:text-x-red'} transition group">
-                <div class="p-2 rounded-full group-hover:bg-x-red/10">
+            <!-- Action Bar (Cheers, Replies, Spark) -->
+            <div class="flex items-center justify-between text-oasis-muted text-xs mt-3.5 max-w-sm">
+              <!-- Cheers / Vibe Like Button -->
+              <button onclick="toggleCheers(${index})" class="flex items-center space-x-2 ${post.liked ? 'text-oasis-sunset font-bold' : 'hover:text-oasis-sunset'} transition group">
+                <div class="p-2 rounded-xl group-hover:bg-oasis-sunset/10">
                   <i data-lucide="heart" class="w-4 h-4 ${post.liked ? 'fill-current' : ''}"></i>
                 </div>
-                <span>${post.likes || 0}</span>
+                <span>${post.cheers || 0} Cheers</span>
               </button>
 
-              <!-- Bookmark / Share -->
-              <button class="flex items-center space-x-2 hover:text-x-blue transition group">
-                <div class="p-2 rounded-full group-hover:bg-x-blue/10">
-                  <i data-lucide="bookmark" class="w-4 h-4"></i>
+              <!-- Reply / Chat -->
+              <button class="flex items-center space-x-2 hover:text-oasis-teal transition group">
+                <div class="p-2 rounded-xl group-hover:bg-oasis-teal/10">
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
+                </div>
+                <span>${post.replies || 0} Chat</span>
+              </button>
+
+              <!-- Share Vibe -->
+              <button onclick="sharePost()" class="flex items-center space-x-2 hover:text-oasis-amber transition group">
+                <div class="p-2 rounded-xl group-hover:bg-oasis-amber/10">
+                  <i data-lucide="share-2" class="w-4 h-4"></i>
                 </div>
               </button>
             </div>
@@ -673,23 +810,20 @@
       lucide.createIcons();
     }
 
-    // Interactive Toggles (Like & Repost)
-    window.toggleLike = function(idx) {
+    // Interactive Cheers Toggle
+    window.toggleCheers = function(idx) {
       const p = window.posts[idx];
       if (!p) return;
       p.liked = !p.liked;
-      p.likes += p.liked ? 1 : -1;
-      localStorage.setItem('pulse_posts', JSON.stringify(window.posts));
+      p.cheers += p.liked ? 1 : -1;
+      if (p.liked) triggerConfetti();
+      localStorage.setItem('oasis_posts', JSON.stringify(window.posts));
       renderFeed();
     };
 
-    window.toggleRepost = function(idx) {
-      const p = window.posts[idx];
-      if (!p) return;
-      p.retweeted = !p.retweeted;
-      p.retweets += p.retweeted ? 1 : -1;
-      localStorage.setItem('pulse_posts', JSON.stringify(window.posts));
-      renderFeed();
+    window.sharePost = function() {
+      navigator.clipboard?.writeText(window.location.href);
+      alert("🌴 Oasis vibe link copied to clipboard!");
     };
 
     function escapeHTML(str) {
@@ -698,16 +832,13 @@
       );
     }
 
-    // Modal & Config Handlers
+    // Modal & Config
     window.openConfigModal = function() {
-      const modal = document.getElementById('config-modal');
-      modal.classList.remove('hidden');
+      document.getElementById('config-modal').classList.remove('hidden');
       const cfg = JSON.parse(localStorage.getItem('pulse_firebase_config') || '{}');
       document.getElementById('cfg-apiKey').value = cfg.apiKey || '';
       document.getElementById('cfg-authDomain').value = cfg.authDomain || '';
       document.getElementById('cfg-projectId').value = cfg.projectId || '';
-      document.getElementById('cfg-storageBucket').value = cfg.storageBucket || '';
-      document.getElementById('cfg-messagingSenderId').value = cfg.messagingSenderId || '';
       document.getElementById('cfg-appId').value = cfg.appId || '';
     };
 
@@ -720,13 +851,11 @@
         apiKey: document.getElementById('cfg-apiKey').value.trim(),
         authDomain: document.getElementById('cfg-authDomain').value.trim(),
         projectId: document.getElementById('cfg-projectId').value.trim(),
-        storageBucket: document.getElementById('cfg-storageBucket').value.trim(),
-        messagingSenderId: document.getElementById('cfg-messagingSenderId').value.trim(),
         appId: document.getElementById('cfg-appId').value.trim()
       };
 
       if (!config.apiKey || !config.projectId) {
-        alert("Please enter at least an apiKey and projectId from your Firebase Console.");
+        alert("Please enter at least an apiKey and projectId.");
         return;
       }
 
@@ -741,7 +870,6 @@
       window.location.reload();
     };
 
-    // Helper: UI input handling & auto-grow
     window.handleInput = function(el) {
       el.style.height = 'auto';
       el.style.height = el.scrollHeight + 'px';
@@ -751,7 +879,7 @@
       if (remaining < 20) {
         counter.className = "text-xs font-mono text-red-400 font-bold";
       } else {
-        counter.className = "text-xs font-mono text-x-muted";
+        counter.className = "text-xs font-mono text-oasis-muted";
       }
     };
 
@@ -776,12 +904,13 @@
     };
 
     window.toggleFollow = function(btn) {
-      if (btn.innerText === 'Follow') {
-        btn.innerText = 'Following';
-        btn.className = "px-3 py-1 bg-transparent hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/40 border border-x-border text-white font-bold text-xs rounded-full transition";
+      if (btn.innerText === 'Connect') {
+        btn.innerText = 'Connected 🌴';
+        btn.className = "px-3 py-1.5 bg-white/10 text-oasis-teal font-display font-bold text-xs rounded-xl border border-oasis-teal/40 transition";
+        triggerConfetti();
       } else {
-        btn.innerText = 'Follow';
-        btn.className = "px-3 py-1 bg-white hover:bg-gray-200 text-black font-bold text-xs rounded-full transition";
+        btn.innerText = 'Connect';
+        btn.className = "px-3 py-1.5 gradient-oasis text-black font-display font-bold text-xs rounded-xl hover:opacity-90 transition";
       }
     };
 
