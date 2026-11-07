@@ -85,11 +85,6 @@ Connecting your real Google Firebase backend takes about 2 minutes:
 2. Open PowerShell in this folder:
    ```powershell
    cd C:\Users\Tyler\.gemini\antigravity\scratch\x-clone-firebase
-   git init
-   git add .
-   git commit -m "feat: initial x clone with firebase"
-   git branch -M main
-   git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/pulse-social.git
    git push -u origin main
    ```
 3. In your repo on GitHub, go to **Settings &rarr; Pages**:
@@ -97,10 +92,11 @@ Connecting your real Google Firebase backend takes about 2 minutes:
    - Set **Branch** to `main` and folder to `/ (root)`.
    - Click **Save**.
 4. In the **Firebase Console &rarr; Authentication &rarr; Settings &rarr; Authorized Domains**, add:
-   `<YOUR_GITHUB_USERNAME>.github.io`
+   `tylerrnmn.github.io`
    *(This authorizes Google Sign-In to run from your live GitHub Pages URL!)*
 
 Your live social app is now ready to share at:
 ```
-https://<YOUR_GITHUB_USERNAME>.github.io/pulse-social/
+https://tylerrnmn.github.io/pulse-social/
 ```
+
