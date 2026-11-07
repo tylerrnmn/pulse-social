@@ -8,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Canvas Confetti for Fun Interactions -->
+  <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,11 +60,34 @@
     .gradient-sunset {
       background: linear-gradient(135deg, #F43F5E 0%, #F59E0B 100%);
     }
+    .gradient-apple {
+      background: linear-gradient(135deg, #FC3C44 0%, #F94C57 50%, #7B2CBF 100%);
+    }
     .vibe-pill-active {
       background: linear-gradient(135deg, #06B6D4 0%, #10B981 100%);
       color: #000;
       font-weight: 700;
       border-color: transparent;
+    }
+    .sound-wave {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 16px;
+    }
+    .sound-bar {
+      width: 3px;
+      background-color: #F43F5E;
+      border-radius: 9999px;
+      animation: bounce 1s infinite alternate ease-in-out;
+    }
+    .sound-bar:nth-child(1) { height: 6px; animation-delay: 0.1s; }
+    .sound-bar:nth-child(2) { height: 14px; animation-delay: 0.3s; }
+    .sound-bar:nth-child(3) { height: 10px; animation-delay: 0.2s; }
+    .sound-bar:nth-child(4) { height: 16px; animation-delay: 0.4s; }
+    @keyframes bounce {
+      0% { height: 4px; }
+      100% { height: 16px; }
     }
   </style>
 </head>
@@ -97,19 +120,19 @@
           </a>
           <a href="#" onclick="filterVibe('🎵 Music')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
             <i data-lucide="headphones" class="w-6 h-6 group-hover:text-oasis-sunset transition"></i>
-            <span class="hidden xl:inline">Live Music API</span>
+            <span class="hidden xl:inline">Music Drops</span>
+          </a>
+          <a href="#" onclick="filterVibe('🧠 Knowledge')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
+            <i data-lucide="book-open" class="w-6 h-6 group-hover:text-oasis-amber transition"></i>
+            <span class="hidden xl:inline">Daily Knowledge</span>
           </a>
           <a href="#" onclick="filterVibe('🎮 Gaming')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
             <i data-lucide="gamepad-2" class="w-6 h-6 group-hover:text-oasis-purple transition"></i>
-            <span class="hidden xl:inline">Free Games Feed</span>
+            <span class="hidden xl:inline">Gaming Freebies</span>
           </a>
           <a href="#" onclick="filterVibe('🍿 Movies & TV')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
-            <i data-lucide="film" class="w-6 h-6 group-hover:text-oasis-amber transition"></i>
+            <i data-lucide="film" class="w-6 h-6 group-hover:text-oasis-emerald transition"></i>
             <span class="hidden xl:inline">Cinema & TV</span>
-          </a>
-          <a href="#" onclick="filterVibe('🎭 Memes & Fun')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
-            <i data-lucide="sparkles" class="w-6 h-6 group-hover:text-oasis-emerald transition"></i>
-            <span class="hidden xl:inline">Memes & Fun</span>
           </a>
           <button onclick="openConfigModal()" class="w-full flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group text-left">
             <i data-lucide="settings" class="w-6 h-6"></i>
@@ -142,7 +165,7 @@
           <div>
             <h1 class="font-display font-extrabold text-xl text-white flex items-center gap-2">
               <span>The Oasis Lounge</span>
-              <span class="text-[10px] bg-oasis-teal/10 text-oasis-teal font-mono border border-oasis-teal/30 px-2 py-0.5 rounded-full font-bold">Live APIs Connected</span>
+              <span class="text-[10px] bg-oasis-teal/10 text-oasis-teal font-mono border border-oasis-teal/30 px-2 py-0.5 rounded-full font-bold">Live APIs</span>
             </h1>
           </div>
           
@@ -160,27 +183,29 @@
           </div>
         </div>
 
-        <!-- Entertainment Category Filter Pills -->
+        <!-- Entertainment & Knowledge Filter Pills -->
         <div class="flex items-center space-x-2 px-4 py-2.5 overflow-x-auto custom-scrollbar text-xs">
           <button onclick="filterVibe('All')" id="vibe-btn-All" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-white hover:border-oasis-teal transition shrink-0 vibe-pill-active">
             🌴 All Vibes
           </button>
           <button onclick="filterVibe('🎵 Music')" id="vibe-btn-music" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-sunset transition shrink-0">
-            🎵 Live Music Previews
+            🎵 Music & 30s Samples
+          </button>
+          <button onclick="filterVibe('🧠 Knowledge')" id="vibe-btn-knowledge" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-amber transition shrink-0">
+            🧠 Daily Facts & Trivia
           </button>
           <button onclick="filterVibe('🎮 Gaming')" id="vibe-btn-gaming" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-purple transition shrink-0">
             🎮 Free Games Loot
           </button>
-          <button onclick="filterVibe('🍿 Movies & TV')" id="vibe-btn-movies" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-amber transition shrink-0">
+          <button onclick="filterVibe('🍿 Movies & TV')" id="vibe-btn-movies" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-emerald transition shrink-0">
             🍿 Cinema & Shows
-          </button>
-          <button onclick="filterVibe('🎭 Memes & Fun')" id="vibe-btn-memes" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-emerald transition shrink-0">
-            🎭 Memes & Laughs
           </button>
         </div>
       </div>
 
-      <!-- Compose "Drop a Vibe" Box -->
+      <!-- ========================================== -->
+      <!-- COMPOSE BOX WITH DIRECT AUDIO ATTACHMENT -->
+      <!-- ========================================== -->
       <div class="p-4 sm:p-5 border-b border-oasis-border/80 bg-oasis-card/30 flex space-x-4">
         <img id="compose-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120" alt="Avatar" class="w-11 h-11 rounded-2xl object-cover ring-2 ring-oasis-teal/40">
         
@@ -190,28 +215,38 @@
             <span class="text-[11px] font-mono text-oasis-muted uppercase tracking-wider">Category:</span>
             <select id="post-category" class="bg-oasis-bg border border-oasis-border text-oasis-teal text-xs rounded-xl px-2.5 py-1 font-semibold outline-none focus:border-oasis-teal">
               <option value="🌴 General Vibe">🌴 General Vibe</option>
-              <option value="🎵 Music">🎵 Music & Drops</option>
+              <option value="🎵 Music">🎵 Music Drop (with 30s Audio)</option>
+              <option value="🧠 Knowledge">🧠 Knowledge & Fact</option>
               <option value="🎮 Gaming">🎮 Gaming</option>
               <option value="🍿 Movies & TV">🍿 Movies & Shows</option>
               <option value="🎭 Memes & Fun">🎭 Memes & Fun</option>
-              <option value="🏖️ Weekend Plans">🏖️ Weekend Plans</option>
             </select>
           </div>
 
-          <textarea id="post-input" rows="2" placeholder="What's making you smile, laugh, or jam today?! 🌴✨" class="w-full bg-transparent text-white placeholder-oasis-muted text-base resize-none pt-1" oninput="handleInput(this)"></textarea>
+          <textarea id="post-input" rows="2" placeholder="Share a song, fun fact, or good vibe today! 🌴✨" class="w-full bg-transparent text-white placeholder-oasis-muted text-base resize-none pt-1" oninput="handleInput(this)"></textarea>
           
-          <!-- Optional Attached Media (e.g. from Music API or Image URL) -->
-          <div id="attached-media-preview" class="hidden mb-3 p-3 bg-oasis-bg rounded-2xl border border-oasis-border flex items-center justify-between">
-            <div class="flex items-center space-x-3 truncate">
-              <img id="attached-media-img" src="" class="w-12 h-12 rounded-xl object-cover">
-              <div class="truncate text-xs">
-                <div id="attached-media-title" class="font-bold text-white truncate">Track Title</div>
-                <div id="attached-media-sub" class="text-oasis-muted truncate">Artist Name</div>
+          <!-- Attached Music Player Card in Compose Box -->
+          <div id="attached-music-card" class="hidden my-3 p-3.5 bg-oasis-bg rounded-2xl border border-oasis-sunset/40 relative shadow-lg">
+            <div class="flex items-center space-x-3.5">
+              <div class="relative shrink-0">
+                <img id="attached-track-artwork" src="" class="w-14 h-14 rounded-xl object-cover ring-1 ring-white/10">
+                <button onclick="previewComposeAudio()" id="btn-compose-audio-preview" class="absolute inset-0 bg-black/50 hover:bg-black/70 flex items-center justify-center text-white rounded-xl transition">
+                  <i data-lucide="play" class="w-5 h-5 fill-current"></i>
+                </button>
               </div>
+
+              <div class="flex-1 truncate">
+                <div class="flex items-center space-x-1.5">
+                  <span class="text-[10px] font-mono font-bold bg-oasis-sunset/20 text-oasis-sunset px-2 py-0.5 rounded-full">Apple Music 30s Sample</span>
+                </div>
+                <div id="attached-track-title" class="font-display font-bold text-white text-sm truncate mt-0.5">Song Title</div>
+                <div id="attached-track-artist" class="text-xs text-oasis-muted truncate">Artist Name</div>
+              </div>
+
+              <button onclick="removeAttachedMusic()" title="Remove Attachment" class="p-1.5 text-oasis-muted hover:text-red-400 rounded-full hover:bg-white/5 transition">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
             </div>
-            <button onclick="removeAttachedMedia()" class="p-1 rounded-full text-oasis-muted hover:text-white">
-              <i data-lucide="x" class="w-4 h-4"></i>
-            </button>
           </div>
 
           <!-- Image URL Input (Collapsible) -->
@@ -222,13 +257,14 @@
           <!-- Compose Toolbar -->
           <div class="flex items-center justify-between pt-3 border-t border-oasis-border/40">
             <div class="flex items-center space-x-1.5 text-oasis-teal">
-              <button onclick="toggleImageInput()" title="Add Picture/GIF" class="p-2 rounded-xl hover:bg-oasis-teal/10 transition flex items-center space-x-1 text-xs font-semibold">
-                <i data-lucide="image" class="w-4 h-4"></i>
-                <span class="hidden sm:inline">Image</span>
+              <!-- Direct Button to Attach Apple Music Sample -->
+              <button onclick="openMusicSearchModal()" title="Search & Attach Apple Music 30s Sample" class="py-1.5 px-3 rounded-xl bg-oasis-sunset/10 hover:bg-oasis-sunset/20 text-oasis-sunset transition flex items-center space-x-1.5 text-xs font-bold border border-oasis-sunset/30">
+                <i data-lucide="music-2" class="w-4 h-4"></i>
+                <span>Attach Apple Music Sample</span>
               </button>
-              <button onclick="searchMusicModal()" title="Search Live Music to Attach" class="p-2 rounded-xl hover:bg-oasis-sunset/10 text-oasis-sunset transition flex items-center space-x-1 text-xs font-semibold">
-                <i data-lucide="music" class="w-4 h-4"></i>
-                <span class="hidden sm:inline">Add Track</span>
+
+              <button onclick="toggleImageInput()" title="Add Picture/GIF" class="p-2 rounded-xl hover:bg-oasis-teal/10 transition text-xs font-semibold">
+                <i data-lucide="image" class="w-4 h-4"></i>
               </button>
               <button onclick="insertEmoji('🎉')" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🎉</button>
               <button onclick="insertEmoji('🔥')" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🔥</button>
@@ -253,27 +289,61 @@
 
 
     <!-- ============================================== -->
-    <!-- RIGHT SIDEBAR: LIVE APIS & MUSIC PLAYER (Col 3) -->
+    <!-- RIGHT SIDEBAR: LIVE APIS & KNOWLEDGE (Col 3) -->
     <!-- ============================================== -->
     <aside class="hidden lg:block w-80 xl:w-96 p-4 space-y-5 shrink-0">
       
       <!-- Search Bar -->
       <div class="relative">
         <i data-lucide="search" class="w-4 h-4 absolute left-4 top-3.5 text-oasis-muted"></i>
-        <input type="text" id="search-input" oninput="handleSearch(this.value)" placeholder="Search entertainment, music, memes..." class="w-full bg-oasis-card border border-oasis-border/60 focus:border-oasis-teal focus:bg-black/60 text-sm text-white placeholder-oasis-muted rounded-2xl pl-11 pr-4 py-2.5 transition outline-none">
+        <input type="text" id="search-input" oninput="handleSearch(this.value)" placeholder="Search entertainment, music, facts..." class="w-full bg-oasis-card border border-oasis-border/60 focus:border-oasis-teal focus:bg-black/60 text-sm text-white placeholder-oasis-muted rounded-2xl pl-11 pr-4 py-2.5 transition outline-none">
       </div>
 
       <!-- ========================================== -->
-      <!-- 1. LIVE OASIS MUSIC PLAYER (Apple iTunes API) -->
+      <!-- 1. LIVE INFORMATIONAL API: ON THIS DAY / FACT -->
+      <!-- ========================================== -->
+      <div class="bg-oasis-card border border-oasis-border/70 rounded-3xl p-5 space-y-3.5 shadow-xl">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <span class="text-xl">🧠</span>
+            <h3 class="font-display font-bold text-sm text-white">Daily Knowledge Drop</h3>
+          </div>
+          <span class="text-[10px] font-mono text-oasis-amber bg-oasis-amber/10 px-2 py-0.5 rounded-full font-bold">Wikipedia Open API</span>
+        </div>
+
+        <div id="knowledge-card-body" class="p-3.5 bg-black/40 rounded-2xl border border-oasis-border/60 text-xs space-y-2">
+          <div class="flex items-center justify-between text-oasis-amber font-mono text-[11px]">
+            <span id="knowledge-topic">On This Day in History</span>
+            <span id="knowledge-year" class="font-bold"></span>
+          </div>
+          <p id="knowledge-text" class="text-gray-300 leading-relaxed font-normal">
+            Loading fascinating entertainment & history facts...
+          </p>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="fetchDailyKnowledge()" class="flex-1 py-1.5 px-3 bg-white/5 hover:bg-white/10 text-oasis-muted hover:text-white rounded-xl text-xs font-semibold transition flex items-center justify-center space-x-1.5">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            <span>Another Fact</span>
+          </button>
+          <button onclick="shareKnowledgeToCompose()" class="py-1.5 px-3 bg-oasis-amber/10 hover:bg-oasis-amber/20 text-oasis-amber border border-oasis-amber/30 rounded-xl text-xs font-bold transition flex items-center space-x-1">
+            <i data-lucide="share" class="w-3.5 h-3.5"></i>
+            <span>Share to Lounge</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 2. LIVE OASIS MUSIC PLAYER (Apple iTunes API) -->
       <!-- ========================================== -->
       <div class="gradient-sunset p-[1px] rounded-3xl shadow-xl shadow-oasis-sunset/10">
         <div class="bg-oasis-card rounded-3xl p-5">
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs uppercase font-mono font-bold text-oasis-sunset tracking-wider flex items-center gap-1.5">
               <i data-lucide="radio" class="w-4 h-4 animate-pulse"></i>
-              <span>Oasis Live Radio API</span>
+              <span>Oasis Live Radio</span>
             </span>
-            <span class="text-[10px] bg-oasis-sunset/20 text-pink-300 font-mono px-2 py-0.5 rounded-full font-bold">iTunes Live</span>
+            <span class="text-[10px] bg-oasis-sunset/20 text-pink-300 font-mono px-2 py-0.5 rounded-full font-bold">Apple iTunes 30s</span>
           </div>
 
           <!-- Active Track Info -->
@@ -285,34 +355,34 @@
             </div>
           </div>
 
-          <!-- Hidden Audio Element -->
-          <audio id="oasis-audio-player" onended="onAudioEnded()"></audio>
+          <!-- Master Radio Audio Element -->
+          <audio id="oasis-radio-player" onended="onRadioEnded()"></audio>
 
           <!-- Controls -->
           <div class="flex items-center space-x-2">
-            <button onclick="toggleAudioPlayback()" id="btn-play-pause" class="flex-1 py-2 px-3 gradient-sunset text-white font-display font-bold text-xs rounded-xl transition flex items-center justify-center space-x-1.5 shadow-md">
+            <button onclick="toggleRadioPlayback()" id="btn-radio-play" class="flex-1 py-2 px-3 gradient-sunset text-white font-display font-bold text-xs rounded-xl transition flex items-center justify-center space-x-1.5 shadow-md">
               <i data-lucide="play" class="w-4 h-4 fill-current"></i>
-              <span id="play-btn-text">Listen (30s Preview)</span>
+              <span id="radio-btn-text">Listen (30s Preview)</span>
             </button>
             <button onclick="fetchNextLiveTrack()" title="Next Live Song" class="py-2 px-3 bg-white/5 hover:bg-white/10 text-white text-xs rounded-xl border border-white/10 transition">
               <i data-lucide="skip-forward" class="w-4 h-4"></i>
             </button>
-            <button onclick="attachCurrentTrackToCompose()" title="Share This Song to Lounge" class="py-2 px-3 bg-oasis-teal/10 hover:bg-oasis-teal/20 text-oasis-teal text-xs rounded-xl border border-oasis-teal/30 transition flex items-center gap-1 font-semibold">
-              <i data-lucide="share" class="w-3.5 h-3.5"></i>
-              <span>Post</span>
+            <button onclick="attachCurrentRadioTrack()" title="Attach This Song to Post" class="py-2 px-3 bg-oasis-teal/10 hover:bg-oasis-teal/20 text-oasis-teal text-xs rounded-xl border border-oasis-teal/30 transition flex items-center gap-1 font-semibold">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>Attach</span>
             </button>
           </div>
         </div>
       </div>
 
       <!-- ========================================== -->
-      <!-- 2. LIVE GAMING LOOT (GamerPower API) -->
+      <!-- 3. LIVE FREE GAMING LOOT (FreeToPlay API) -->
       <!-- ========================================== -->
       <div class="bg-oasis-card border border-oasis-border/70 rounded-3xl p-5 space-y-4">
         <div class="flex items-center justify-between">
           <h3 class="font-display font-bold text-base text-white flex items-center gap-2">
             <i data-lucide="gift" class="w-4 h-4 text-oasis-purple"></i>
-            <span>Live Free Games & Loot</span>
+            <span>Free Games & Drops</span>
           </h3>
           <span class="text-[10px] font-mono text-oasis-purple bg-oasis-purple/10 px-2 py-0.5 rounded-full font-bold">FreeToPlay API</span>
         </div>
@@ -322,29 +392,8 @@
         </div>
       </div>
 
-      <!-- ========================================== -->
-      <!-- 3. LIVE VIBE WEATHER (Open-Meteo API) -->
-      <!-- ========================================== -->
-      <div class="bg-oasis-card border border-oasis-border/70 rounded-3xl p-5 space-y-3">
-        <div class="flex items-center justify-between">
-          <h3 class="font-display font-bold text-base text-white flex items-center gap-2">
-            <i data-lucide="sun" class="w-4 h-4 text-oasis-amber"></i>
-            <span>Oasis Vibe Forecast</span>
-          </h3>
-          <span class="text-[10px] font-mono text-oasis-amber bg-oasis-amber/10 px-2 py-0.5 rounded-full font-bold">Open-Meteo (CC-BY)</span>
-        </div>
-
-        <div class="p-3 bg-black/40 rounded-2xl border border-oasis-border/50 flex items-center justify-between">
-          <div>
-            <div id="vibe-city-name" class="font-bold text-white text-xs">Miami Beach, FL</div>
-            <div id="vibe-verdict" class="text-[11px] text-emerald-400 font-semibold mt-0.5">🌴 9.8/10 Perfect Chill Weather</div>
-          </div>
-          <div id="vibe-temp-display" class="font-display font-extrabold text-2xl text-white">76°F</div>
-        </div>
-      </div>
-
       <div class="text-[11px] text-oasis-muted space-x-2 px-2 text-center">
-        <span>🌴 The Oasis • Powered by Public & Commercial-Friendly Open APIs</span>
+        <span>🌴 The Oasis • Open Knowledge & Public Media APIs</span>
       </div>
     </aside>
 
@@ -352,27 +401,37 @@
 
 
   <!-- ============================================== -->
-  <!-- MODAL: MUSIC SEARCH POPUP -->
+  <!-- MODAL: SEARCH & ATTACH APPLE MUSIC SAMPLE -->
   <!-- ============================================== -->
-  <div id="music-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-oasis-card border border-oasis-border w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between pb-2 border-b border-oasis-border">
-        <h3 class="font-display font-bold text-lg text-white flex items-center gap-2">
-          <i data-lucide="music" class="w-5 h-5 text-oasis-sunset"></i>
-          <span>Search & Attach a Live Song</span>
-        </h3>
-        <button onclick="closeMusicModal()" class="text-oasis-muted hover:text-white p-1">
+  <div id="music-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-oasis-card border border-oasis-border w-full max-w-lg rounded-3xl p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-oasis-border">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-xl gradient-apple flex items-center justify-center text-white">
+            <i data-lucide="music" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-lg text-white">Apple Music 30s Audio Samples</h3>
+            <p class="text-xs text-oasis-muted">Search any song to attach to your post.</p>
+          </div>
+        </div>
+        <button onclick="closeMusicModal()" class="text-oasis-muted hover:text-white p-1 rounded-full hover:bg-white/10">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
       <div class="flex gap-2">
-        <input type="text" id="music-search-query" placeholder="Search artist or track (e.g. Drake, Dua Lipa, Lo-Fi)..." class="flex-1 bg-oasis-bg border border-oasis-border rounded-xl px-3 py-2 text-xs text-white focus:border-oasis-sunset outline-none" onkeydown="if(event.key==='Enter') executeMusicSearch()">
-        <button onclick="executeMusicSearch()" class="px-4 py-2 gradient-sunset text-white font-bold text-xs rounded-xl">Search</button>
+        <input type="text" id="music-search-query" placeholder="Type artist or song (e.g. Taylor Swift, Kendrick, Daft Punk, Lo-Fi)..." class="flex-1 bg-oasis-bg border border-oasis-border rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-oasis-sunset outline-none font-medium" onkeydown="if(event.key==='Enter') executeMusicSearch()">
+        <button onclick="executeMusicSearch()" class="px-5 py-2.5 gradient-apple text-white font-bold text-xs rounded-xl shadow-md">
+          Search
+        </button>
       </div>
 
-      <div id="music-search-results" class="max-h-64 overflow-y-auto space-y-2 text-xs custom-scrollbar">
-        <div class="text-oasis-muted text-center py-6">Search any track to attach to your post!</div>
+      <!-- Results list with audio preview buttons -->
+      <div id="music-search-results" class="max-h-72 overflow-y-auto space-y-2.5 text-xs custom-scrollbar">
+        <div class="text-oasis-muted text-center py-8">
+          Type an artist or track above to preview and attach live 30s samples!
+        </div>
       </div>
     </div>
   </div>
@@ -436,7 +495,7 @@
 
 
   <!-- ============================================== -->
-  <!-- APPLICATION SCRIPTS & LIVE API INTEGRATIONS -->
+  <!-- APPLICATION SCRIPTS, AUDIO PLAYERS & APIS -->
   <!-- ============================================== -->
   <script type="module">
     // Firebase modular SDK imports
@@ -449,11 +508,22 @@
     let isFirebaseReady = false;
     let activeFilter = 'All';
 
-    // State for Live Music API
-    let liveRadioTracks = [];
-    let currentRadioTrackIndex = 0;
-    let isPlayingAudio = false;
-    let currentAttachedTrack = null;
+    // State for Attached Audio in Compose
+    let attachedTrack = null;
+    let composeAudioPlayer = new Audio();
+    let isComposeAudioPlaying = false;
+
+    // State for Global Audio Players
+    let currentFeedPlayingAudio = null;
+    let currentFeedPlayingBtnId = null;
+
+    // State for Live Radio
+    let radioTracks = [];
+    let currentRadioIndex = 0;
+    let isRadioPlaying = false;
+
+    // State for Knowledge API
+    let currentKnowledgeItem = null;
 
     // Current User Profile (defaults to demo user in The Oasis)
     window.currentUser = {
@@ -465,7 +535,7 @@
       isDemo: true
     };
 
-    // Entertainment / Fun / People-Centric Seed Posts
+    // Seed Posts with Embedded Apple Music Samples & Knowledge
     const oasisDefaultPosts = [
       {
         id: 'post_1',
@@ -475,46 +545,52 @@
           handle: 'chloevibes',
           avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&h=120'
         },
-        text: 'This live track from the Oasis radio just made my whole afternoon. Put on some good headphones and relax! 🌴✨',
-        image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
-        timestamp: '15m ago',
-        cheers: 312,
-        replies: 42,
-        liked: false
+        text: 'Attaching the 30s preview of this track! Put on headphones and hit play below 🌴✨ What should we queue next in the lounge?',
+        attachedMusic: {
+          title: 'Sunflower',
+          artist: 'Post Malone & Swae Lee',
+          artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/bf/25/60/bf2560a8-bcf6-1934-4b53-4dc9cfeb24b9/18UMGIM70176.rgb.jpg/600x600bb.jpg',
+          previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/74/4e/69/744e69b0-95b6-681b-500b-6804a9d7b4db/mzaf_8468307399480112702.plus.aac.p.m4a',
+          appleMusicUrl: 'https://music.apple.com'
+        },
+        timestamp: '10m ago',
+        cheers: 420,
+        replies: 56,
+        liked: true
       },
       {
         id: 'post_2',
+        category: '🧠 Knowledge',
+        author: {
+          name: 'Dr. Evelyn Vance 📚',
+          handle: 'evance_facts',
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120'
+        },
+        text: 'Daily Knowledge Drop from the public Wikipedia API: Honey never spoils! Archaeologists have found pots of 3,000-year-old honey in ancient Egyptian tombs that are still perfectly preserved and edible.',
+        image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=800&q=80',
+        timestamp: '1h ago',
+        cheers: 890,
+        replies: 74,
+        liked: false
+      },
+      {
+        id: 'post_3',
         category: '🎮 Gaming',
         author: {
           name: 'PixelNomad 🕹️',
           handle: 'pixelnomad',
           avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120'
         },
-        text: 'Just claimed the free game drop listed on the right sidebar! You love to see 100% free titles without microtransactions. Grab it while it is active!',
-        timestamp: '45m ago',
-        cheers: 620,
-        replies: 78,
-        liked: true
-      },
-      {
-        id: 'post_3',
-        category: '🍿 Movies & TV',
-        author: {
-          name: 'Marcus Bell 🍿',
-          handle: 'marcus_cinema',
-          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120'
-        },
-        text: '90-minute comedy movies need to make a massive comeback in movie theaters. Give me funny dialogues and good popcorn with friends. Who agrees?',
-        timestamp: '2h ago',
-        cheers: 840,
-        replies: 112,
-        liked: true
+        text: 'Just claimed the free game drop listed on the right sidebar! You love to see 100% free titles without microtransactions. Grab it while it is active! 🎮',
+        timestamp: '3h ago',
+        cheers: 640,
+        replies: 42,
+        liked: false
       }
     ];
 
     window.posts = JSON.parse(localStorage.getItem('oasis_posts')) || oasisDefaultPosts;
 
-    // Confetti Celebration
     window.triggerConfetti = function() {
       if (typeof confetti === 'function') {
         confetti({
@@ -527,111 +603,9 @@
     };
 
     // ==========================================
-    // 1. LIVE API: APPLE ITUNES SEARCH API
+    // 1. APPLE MUSIC SEARCH & ATTACHMENT LOGIC
     // ==========================================
-    async function initLiveMusicAPI() {
-      try {
-        // Fetch top chill & pop hits from iTunes public API
-        const response = await fetch('https://itunes.apple.com/search?term=tropical+chill+vibes&entity=song&limit=15');
-        const data = await response.json();
-        if (data.results && data.results.length > 0) {
-          liveRadioTracks = data.results;
-          loadRadioTrack(0);
-        }
-      } catch (e) {
-        console.warn("iTunes API fallback", e);
-        // Fallback default track
-        document.getElementById('radio-title').innerText = "Golden Sunset Chill";
-        document.getElementById('radio-artist').innerText = "Oasis Resident DJ";
-      }
-    }
-
-    function loadRadioTrack(index) {
-      if (!liveRadioTracks || liveRadioTracks.length === 0) return;
-      currentRadioTrackIndex = index % liveRadioTracks.length;
-      const track = liveRadioTracks[currentRadioTrackIndex];
-
-      document.getElementById('radio-title').innerText = track.trackName;
-      document.getElementById('radio-artist').innerText = track.artistName;
-      
-      const artwork = track.artworkUrl100 ? track.artworkUrl100.replace('100x100bb', '300x300bb') : 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=120&h=120';
-      document.getElementById('radio-artwork').src = artwork;
-
-      const player = document.getElementById('oasis-audio-player');
-      player.src = track.previewUrl || '';
-      
-      if (isPlayingAudio) {
-        player.play().catch(() => {});
-      }
-    }
-
-    window.toggleAudioPlayback = function() {
-      const player = document.getElementById('oasis-audio-player');
-      const btnText = document.getElementById('play-btn-text');
-
-      if (!player.src) return;
-
-      if (isPlayingAudio) {
-        player.pause();
-        isPlayingAudio = false;
-        btnText.innerText = "Listen (30s Preview)";
-      } else {
-        player.play().then(() => {
-          isPlayingAudio = true;
-          btnText.innerText = "Pause Live Track";
-          triggerConfetti();
-        }).catch(err => {
-          console.warn("Audio play prevented:", err);
-        });
-      }
-    };
-
-    window.onAudioEnded = function() {
-      isPlayingAudio = false;
-      document.getElementById('play-btn-text').innerText = "Listen (30s Preview)";
-      fetchNextLiveTrack();
-    };
-
-    window.fetchNextLiveTrack = function() {
-      loadRadioTrack(currentRadioTrackIndex + 1);
-      if (isPlayingAudio) {
-        document.getElementById('oasis-audio-player').play().catch(() => {});
-      }
-    };
-
-    window.attachCurrentTrackToCompose = function() {
-      if (!liveRadioTracks[currentRadioTrackIndex]) return;
-      const track = liveRadioTracks[currentRadioTrackIndex];
-      attachTrackData({
-        title: track.trackName,
-        artist: track.artistName,
-        image: track.artworkUrl100.replace('100x100bb', '600x600bb'),
-        previewUrl: track.previewUrl
-      });
-      focusCompose();
-    };
-
-    function attachTrackData(trackObj) {
-      currentAttachedTrack = trackObj;
-      document.getElementById('attached-media-preview').classList.remove('hidden');
-      document.getElementById('attached-media-img').src = trackObj.image;
-      document.getElementById('attached-media-title').innerText = trackObj.title;
-      document.getElementById('attached-media-sub').innerText = `by ${trackObj.artist}`;
-      document.getElementById('post-category').value = "🎵 Music";
-      
-      const input = document.getElementById('post-input');
-      if (!input.value) {
-        input.value = `Currently vibing to "${trackObj.title}" by ${trackObj.artist}! Give it a listen 🌴🎧`;
-      }
-    }
-
-    window.removeAttachedMedia = function() {
-      currentAttachedTrack = null;
-      document.getElementById('attached-media-preview').classList.add('hidden');
-    };
-
-    // Modal: Search Music via iTunes API
-    window.searchMusicModal = function() {
+    window.openMusicSearchModal = function() {
       document.getElementById('music-modal').classList.remove('hidden');
       document.getElementById('music-search-query').focus();
     };
@@ -645,58 +619,266 @@
       if (!q) return;
 
       const container = document.getElementById('music-search-results');
-      container.innerHTML = '<div class="text-oasis-muted text-center py-4">Searching Apple Music database...</div>';
+      container.innerHTML = '<div class="text-oasis-muted text-center py-6">Searching Apple Music database...</div>';
 
       try {
-        const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(q)}&entity=song&limit=6`);
+        const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(q)}&entity=song&limit=8`);
         const data = await res.json();
         
         if (data.results && data.results.length > 0) {
-          container.innerHTML = data.results.map(t => `
-            <div class="flex items-center justify-between p-2.5 rounded-xl bg-oasis-bg border border-oasis-border hover:border-oasis-sunset transition">
-              <div class="flex items-center space-x-2.5 truncate">
-                <img src="${t.artworkUrl100}" class="w-10 h-10 rounded-lg object-cover">
+          container.innerHTML = data.results.map((t, idx) => `
+            <div class="flex items-center justify-between p-3 rounded-2xl bg-oasis-bg border border-oasis-border hover:border-oasis-sunset transition">
+              <div class="flex items-center space-x-3 truncate flex-1">
+                <img src="${t.artworkUrl100}" class="w-12 h-12 rounded-xl object-cover shrink-0">
                 <div class="truncate">
-                  <div class="font-bold text-white truncate">${t.trackName}</div>
+                  <div class="font-bold text-white truncate text-xs">${t.trackName}</div>
                   <div class="text-[11px] text-oasis-muted truncate">${t.artistName}</div>
+                  <div class="text-[10px] text-oasis-sunset font-mono">30s Sample Available</div>
                 </div>
               </div>
-              <button onclick="selectMusicTrack('${escapeQuotes(t.trackName)}', '${escapeQuotes(t.artistName)}', '${t.artworkUrl100.replace('100x100bb', '600x600bb')}', '${t.previewUrl}')" class="px-3 py-1 bg-oasis-sunset text-white font-bold text-xs rounded-lg hover:opacity-90">
-                Attach
-              </button>
+              
+              <div class="flex items-center space-x-2 shrink-0 ml-2">
+                <button onclick="testPlayModalAudio('${t.previewUrl}', this)" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white transition" title="Preview Audio">
+                  <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                </button>
+                <button onclick="attachTrackToPost('${escapeQuotes(t.trackName)}', '${escapeQuotes(t.artistName)}', '${t.artworkUrl100.replace('100x100bb', '600x600bb')}', '${t.previewUrl}', '${t.trackViewUrl}')" class="px-3.5 py-1.5 gradient-apple text-white font-bold text-xs rounded-xl shadow">
+                  Attach
+                </button>
+              </div>
             </div>
           `).join('');
+          lucide.createIcons();
         } else {
-          container.innerHTML = '<div class="text-oasis-muted text-center py-4">No tracks found. Try another search!</div>';
+          container.innerHTML = '<div class="text-oasis-muted text-center py-6">No songs found. Try another search!</div>';
         }
       } catch (err) {
-        container.innerHTML = '<div class="text-red-400 text-center py-4">Error connecting to Music API.</div>';
+        container.innerHTML = '<div class="text-red-400 text-center py-6">Error contacting Apple Music API.</div>';
       }
     };
 
-    window.selectMusicTrack = function(title, artist, image, previewUrl) {
-      attachTrackData({ title, artist, image, previewUrl });
-      closeMusicModal();
-      focusCompose();
+    let modalPreviewPlayer = new Audio();
+    window.testPlayModalAudio = function(previewUrl, btn) {
+      if (!modalPreviewPlayer.paused && modalPreviewPlayer.src === previewUrl) {
+        modalPreviewPlayer.pause();
+        btn.innerHTML = '<i data-lucide="play" class="w-4 h-4 fill-current"></i>';
+      } else {
+        modalPreviewPlayer.src = previewUrl;
+        modalPreviewPlayer.play().then(() => {
+          btn.innerHTML = '<i data-lucide="pause" class="w-4 h-4 fill-current text-oasis-sunset"></i>';
+        }).catch(() => {});
+      }
+      lucide.createIcons();
     };
 
-    function escapeQuotes(str) {
-      return (str || '').replace(/'/g, "\\'");
-    }
+    window.attachTrackToPost = function(title, artist, artwork, previewUrl, appleMusicUrl) {
+      modalPreviewPlayer.pause();
+      attachedTrack = { title, artist, artwork, previewUrl, appleMusicUrl };
+      
+      document.getElementById('attached-music-card').classList.remove('hidden');
+      document.getElementById('attached-track-artwork').src = artwork;
+      document.getElementById('attached-track-title').innerText = title;
+      document.getElementById('attached-track-artist').innerText = `by ${artist}`;
+      document.getElementById('post-category').value = "🎵 Music";
+
+      composeAudioPlayer.src = previewUrl;
+      closeMusicModal();
+      focusCompose();
+      triggerConfetti();
+    };
+
+    window.removeAttachedMusic = function() {
+      composeAudioPlayer.pause();
+      attachedTrack = null;
+      document.getElementById('attached-music-card').classList.add('hidden');
+    };
+
+    window.previewComposeAudio = function() {
+      const btn = document.getElementById('btn-compose-audio-preview');
+      if (isComposeAudioPlaying) {
+        composeAudioPlayer.pause();
+        isComposeAudioPlaying = false;
+        btn.innerHTML = '<i data-lucide="play" class="w-5 h-5 fill-current"></i>';
+      } else {
+        composeAudioPlayer.play().then(() => {
+          isComposeAudioPlaying = true;
+          btn.innerHTML = '<i data-lucide="pause" class="w-5 h-5 fill-current text-oasis-sunset"></i>';
+        }).catch(() => {});
+      }
+      lucide.createIcons();
+    };
+
+    composeAudioPlayer.onended = function() {
+      isComposeAudioPlaying = false;
+      const btn = document.getElementById('btn-compose-audio-preview');
+      if (btn) btn.innerHTML = '<i data-lucide="play" class="w-5 h-5 fill-current"></i>';
+      lucide.createIcons();
+    };
 
     // ==========================================
-    // 2. LIVE API: GAMERPOWER / FREE-TO-PLAY
+    // 2. IN-FEED AUDIO PLAYBACK FOR ATTACHED TRACKS
     // ==========================================
-    async function initGamingGiveawaysAPI() {
+    window.toggleFeedAudio = function(previewUrl, btnId) {
+      const btn = document.getElementById(btnId);
+
+      // If already playing this same track
+      if (currentFeedPlayingAudio && currentFeedPlayingAudio.src === previewUrl) {
+        if (!currentFeedPlayingAudio.paused) {
+          currentFeedPlayingAudio.pause();
+          btn.innerHTML = '<i data-lucide="play" class="w-4 h-4 fill-current"></i><span>Play 30s Sample</span>';
+          lucide.createIcons();
+          return;
+        } else {
+          currentFeedPlayingAudio.play();
+          btn.innerHTML = `
+            <div class="sound-wave mr-1">
+              <span class="sound-bar"></span><span class="sound-bar"></span><span class="sound-bar"></span><span class="sound-bar"></span>
+            </div>
+            <span>Playing...</span>
+          `;
+          return;
+        }
+      }
+
+      // Stop previous
+      if (currentFeedPlayingAudio) {
+        currentFeedPlayingAudio.pause();
+        if (currentFeedPlayingBtnId) {
+          const prevBtn = document.getElementById(currentFeedPlayingBtnId);
+          if (prevBtn) prevBtn.innerHTML = '<i data-lucide="play" class="w-4 h-4 fill-current"></i><span>Play 30s Sample</span>';
+        }
+      }
+
+      // Play new
+      currentFeedPlayingAudio = new Audio(previewUrl);
+      currentFeedPlayingBtnId = btnId;
+
+      currentFeedPlayingAudio.play().then(() => {
+        triggerConfetti();
+        btn.innerHTML = `
+          <div class="sound-wave mr-1">
+            <span class="sound-bar"></span><span class="sound-bar"></span><span class="sound-bar"></span><span class="sound-bar"></span>
+          </div>
+          <span>Playing...</span>
+        `;
+      }).catch(e => console.warn(e));
+
+      currentFeedPlayingAudio.onended = () => {
+        btn.innerHTML = '<i data-lucide="play" class="w-4 h-4 fill-current"></i><span>Play 30s Sample</span>';
+        lucide.createIcons();
+      };
+    };
+
+    // ==========================================
+    // 3. LIVE INFORMATIONAL API: WIKIPEDIA "ON THIS DAY"
+    // ==========================================
+    window.fetchDailyKnowledge = async function() {
+      const now = new Date();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+
+      try {
+        const res = await fetch(`https://en.wikipedia.org/api/rest_v1/feed/onthisday/selected/${mm}/${dd}`);
+        const data = await res.json();
+        
+        if (data && data.selected && data.selected.length > 0) {
+          // Pick a random event from today
+          const randomIdx = Math.floor(Math.random() * data.selected.length);
+          const item = data.selected[randomIdx];
+          currentKnowledgeItem = item;
+
+          document.getElementById('knowledge-topic').innerText = `On This Day (${now.toLocaleString('default', { month: 'short' })} ${dd})`;
+          document.getElementById('knowledge-year').innerText = item.year ? `Year ${item.year}` : '';
+          document.getElementById('knowledge-text').innerText = item.text;
+        }
+      } catch (e) {
+        console.warn("Wikipedia API fallback", e);
+        document.getElementById('knowledge-text').innerText = "In 1977, the Voyager space probe was launched carrying a Golden Record with human greetings, songs, and whale sounds into interstellar space.";
+      }
+    };
+
+    window.shareKnowledgeToCompose = function() {
+      if (!currentKnowledgeItem) return;
+      const input = document.getElementById('post-input');
+      document.getElementById('post-category').value = "🧠 Knowledge";
+      input.value = `🧠 Daily Knowledge Drop (${currentKnowledgeItem.year}): ${currentKnowledgeItem.text}\n\n#DailyKnowledge #TheOasis`;
+      handleInput(input);
+      focusCompose();
+      triggerConfetti();
+    };
+
+    // ==========================================
+    // 4. LIVE RADIO API
+    // ==========================================
+    async function initLiveRadio() {
+      try {
+        const response = await fetch('https://itunes.apple.com/search?term=tropical+house+chill&entity=song&limit=15');
+        const data = await response.json();
+        if (data.results && data.results.length > 0) {
+          radioTracks = data.results;
+          loadRadioTrack(0);
+        }
+      } catch (e) {
+        console.warn(e);
+      }
+    }
+
+    function loadRadioTrack(idx) {
+      if (!radioTracks.length) return;
+      currentRadioIndex = idx % radioTracks.length;
+      const t = radioTracks[currentRadioIndex];
+
+      document.getElementById('radio-title').innerText = t.trackName;
+      document.getElementById('radio-artist').innerText = t.artistName;
+      document.getElementById('radio-artwork').src = t.artworkUrl100 ? t.artworkUrl100.replace('100x100bb', '300x300bb') : '';
+      
+      const p = document.getElementById('oasis-radio-player');
+      p.src = t.previewUrl;
+      if (isRadioPlaying) p.play().catch(() => {});
+    }
+
+    window.toggleRadioPlayback = function() {
+      const p = document.getElementById('oasis-radio-player');
+      const text = document.getElementById('radio-btn-text');
+
+      if (isRadioPlaying) {
+        p.pause();
+        isRadioPlaying = false;
+        text.innerText = "Listen (30s Preview)";
+      } else {
+        p.play().then(() => {
+          isRadioPlaying = true;
+          text.innerText = "Pause Live Track";
+          triggerConfetti();
+        }).catch(() => {});
+      }
+    };
+
+    window.onRadioEnded = function() {
+      isRadioPlaying = false;
+      document.getElementById('radio-btn-text').innerText = "Listen (30s Preview)";
+      fetchNextLiveTrack();
+    };
+
+    window.fetchNextLiveTrack = function() {
+      loadRadioTrack(currentRadioIndex + 1);
+    };
+
+    window.attachCurrentRadioTrack = function() {
+      if (!radioTracks[currentRadioIndex]) return;
+      const t = radioTracks[currentRadioIndex];
+      attachTrackToPost(t.trackName, t.artistName, t.artworkUrl100.replace('100x100bb', '600x600bb'), t.previewUrl, t.trackViewUrl);
+    };
+
+    // ==========================================
+    // 5. FREE GAMES & WEATHER APIS
+    // ==========================================
+    async function initGamingAPI() {
       const container = document.getElementById('gaming-giveaways-container');
       try {
-        // Public Free-To-Play & Giveaway API endpoint
-        const response = await fetch('https://www.freetogame.com/api/games?sort-by=popularity');
-        const data = await response.json();
-        
-        if (data && data.length > 0) {
-          const topGames = data.slice(0, 3);
-          container.innerHTML = topGames.map(g => `
+        const res = await fetch('https://www.freetogame.com/api/games?sort-by=popularity');
+        const data = await res.json();
+        if (data && data.length) {
+          container.innerHTML = data.slice(0, 3).map(g => `
             <div class="p-2.5 rounded-2xl bg-black/40 border border-oasis-border/60 hover:border-oasis-purple transition flex items-center space-x-3 cursor-pointer" onclick="window.open('${g.freetogame_profile_url || g.game_url}', '_blank')">
               <img src="${g.thumbnail}" class="w-14 h-10 rounded-xl object-cover">
               <div class="truncate flex-1">
@@ -710,40 +892,31 @@
           `).join('');
         }
       } catch (e) {
-        // Graceful fallback with top verified titles
         container.innerHTML = `
           <div class="p-2.5 rounded-2xl bg-black/40 border border-oasis-border/60 flex items-center space-x-3">
             <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=120&h=80" class="w-12 h-9 rounded-xl object-cover">
             <div>
-              <div class="font-bold text-white text-xs">Apex Legends: New Season</div>
-              <div class="text-[10px] text-emerald-400">100% Free on Steam & EA</div>
+              <div class="font-bold text-white text-xs">Apex Legends: Free Drop</div>
+              <div class="text-[10px] text-emerald-400">100% Free on Steam</div>
             </div>
           </div>
         `;
       }
     }
 
-    // ==========================================
-    // 3. LIVE API: OPEN-METEO WEATHER (CC-BY 4.0)
-    // ==========================================
-    async function initLiveWeatherAPI() {
+    async function initWeatherAPI() {
       try {
-        // Miami coordinates default for The Oasis aesthetic (25.7617° N, 80.1918° W)
-        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=25.76&longitude=-80.19&current=temperature_2m,weather_code&temperature_unit=fahrenheit');
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=25.76&longitude=-80.19&current=temperature_2m&temperature_unit=fahrenheit');
         const data = await res.json();
         if (data && data.current) {
           const temp = Math.round(data.current.temperature_2m);
-          document.getElementById('vibe-temp-display').innerText = `${temp}°F`;
           document.getElementById('weather-text').innerText = `${temp}°F Beach Vibe`;
-          document.getElementById('vibe-verdict').innerText = temp >= 70 ? '🌴 9.8/10 Perfect Chill Weather' : '☕ Cozy 8.5/10 Indoor Lounge Vibe';
         }
-      } catch (e) {
-        console.warn("Weather API fallback", e);
-      }
+      } catch (e) {}
     }
 
     // ==========================================
-    // 4. FIREBASE AUTH & FIRESTORE INITIALIZATION
+    // 6. FIREBASE & POST SUBMISSION
     // ==========================================
     function initFirebase() {
       const storedConfig = localStorage.getItem('pulse_firebase_config');
@@ -769,15 +942,6 @@
                   isLoggedIn: true,
                   isDemo: false
                 };
-              } else {
-                window.currentUser = {
-                  uid: null,
-                  displayName: 'Guest Vibe',
-                  handle: 'guest',
-                  photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120',
-                  isLoggedIn: false,
-                  isDemo: false
-                };
               }
               renderAuthArea();
               updateComposeAvatar();
@@ -793,47 +957,203 @@
                 window.posts = livePosts;
                 renderFeed();
               }
-            }, (error) => {
-              console.warn("Firestore listener warning:", error);
             });
-
             return;
           }
-        } catch (e) {
-          console.error("Failed to parse Firebase config", e);
-        }
+        } catch (e) {}
       }
-
       renderAuthArea();
       renderFeed();
     }
 
-    // Google Sign-In Action
-    window.handleGoogleSignIn = async function() {
-      if (isFirebaseReady && auth) {
-        const provider = new GoogleAuthProvider();
+    window.submitPost = async function() {
+      const input = document.getElementById('post-input');
+      const text = input.value.trim();
+      const imageUrlInput = document.getElementById('post-image-url');
+      const imageUrl = imageUrlInput ? imageUrlInput.value.trim() : '';
+      const category = document.getElementById('post-category').value;
+
+      if (!text && !attachedTrack) return;
+
+      const newPost = {
+        category: category,
+        author: {
+          name: window.currentUser.displayName,
+          handle: window.currentUser.handle,
+          avatar: window.currentUser.photoURL
+        },
+        text: text,
+        image: attachedTrack ? null : (imageUrl || null),
+        attachedMusic: attachedTrack ? { ...attachedTrack } : null,
+        timestamp: 'Just now',
+        cheers: 1,
+        replies: 0,
+        liked: true
+      };
+
+      if (isFirebaseReady && db) {
         try {
-          await signInWithPopup(auth, provider);
+          await addDoc(collection(db, "oasis_posts"), {
+            ...newPost,
+            createdAt: serverTimestamp()
+          });
           triggerConfetti();
-        } catch (error) {
-          alert("Firebase Google Auth Note: " + error.message + "\n\nTip: Add your domain (e.g. localhost or tylerrnmn.github.io) in Firebase Console > Authentication > Settings > Authorized Domains.");
+        } catch (e) {
+          window.posts.unshift(newPost);
+          renderFeed();
         }
       } else {
-        window.currentUser.isLoggedIn = !window.currentUser.isLoggedIn;
+        window.posts.unshift(newPost);
+        localStorage.setItem('oasis_posts', JSON.stringify(window.posts));
         triggerConfetti();
-        renderAuthArea();
         renderFeed();
       }
+
+      input.value = '';
+      if (imageUrlInput) imageUrlInput.value = '';
+      removeAttachedMusic();
+      document.getElementById('char-counter').innerText = '280';
+      input.style.height = 'auto';
     };
 
-    window.handleSignOut = async function() {
-      if (isFirebaseReady && auth) {
-        await signOut(auth);
-      } else {
-        window.currentUser.isLoggedIn = false;
-        renderAuthArea();
+    function renderFeed() {
+      let filtered = window.posts;
+      if (activeFilter !== 'All') {
+        filtered = window.posts.filter(p => p.category === activeFilter);
       }
+      renderFeedWithPosts(filtered);
+    }
+
+    function renderFeedWithPosts(postsList) {
+      const container = document.getElementById('feed-container');
+      if (!container) return;
+
+      container.innerHTML = postsList.map((post, index) => {
+        const music = post.attachedMusic;
+        const feedAudioBtnId = `btn-feed-audio-${index}`;
+
+        return `
+          <article class="p-4 sm:p-5 hover:bg-white/[0.02] transition flex space-x-3.5">
+            <img src="${post.author.avatar}" class="w-11 h-11 rounded-2xl object-cover ring-1 ring-oasis-border shrink-0">
+            
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2 truncate text-sm">
+                  <span class="font-display font-bold text-white truncate">${post.author.name}</span>
+                  <span class="text-oasis-muted text-xs">@${post.author.handle}</span>
+                  <span class="text-oasis-muted text-xs">·</span>
+                  <span class="text-oasis-muted text-xs">${post.timestamp}</span>
+                </div>
+                <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-oasis-card border border-oasis-border text-oasis-teal">
+                  ${post.category || '🌴 General'}
+                </span>
+              </div>
+
+              <p class="text-sm text-oasis-text mt-2 leading-relaxed whitespace-pre-line font-normal">${escapeHTML(post.text)}</p>
+
+              <!-- Attached Apple Music 30s Audio Card in Feed -->
+              ${music ? `
+                <div class="mt-3.5 p-3.5 rounded-2xl bg-gradient-to-r from-oasis-card to-black/60 border border-oasis-sunset/30 shadow-lg">
+                  <div class="flex items-center space-x-3.5">
+                    <img src="${music.artwork}" class="w-16 h-16 rounded-xl object-cover shadow-md shrink-0 ring-1 ring-white/10">
+                    
+                    <div class="flex-1 truncate">
+                      <div class="flex items-center space-x-1.5">
+                        <span class="text-[10px] font-mono font-bold bg-oasis-sunset/20 text-oasis-sunset px-2 py-0.5 rounded-full">Apple Music Sample</span>
+                      </div>
+                      <div class="font-display font-bold text-white text-sm truncate mt-1">${music.title}</div>
+                      <div class="text-xs text-oasis-muted truncate">by ${music.artist}</div>
+                    </div>
+
+                    <button onclick="toggleFeedAudio('${music.previewUrl}', '${feedAudioBtnId}')" id="${feedAudioBtnId}" class="px-3.5 py-2 gradient-apple hover:opacity-90 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5 shrink-0">
+                      <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                      <span>Play 30s Sample</span>
+                    </button>
+                  </div>
+                </div>
+              ` : ''}
+
+              <!-- Attached Image (if no music) -->
+              ${post.image ? `
+                <div class="mt-3.5 rounded-2xl overflow-hidden border border-oasis-border/80 max-h-96 shadow-lg">
+                  <img src="${post.image}" class="w-full h-full object-cover">
+                </div>
+              ` : ''}
+
+              <!-- Action Bar -->
+              <div class="flex items-center justify-between text-oasis-muted text-xs mt-3.5 max-w-sm">
+                <button onclick="toggleCheers(${index})" class="flex items-center space-x-2 ${post.liked ? 'text-oasis-sunset font-bold' : 'hover:text-oasis-sunset'} transition group">
+                  <div class="p-2 rounded-xl group-hover:bg-oasis-sunset/10">
+                    <i data-lucide="heart" class="w-4 h-4 ${post.liked ? 'fill-current' : ''}"></i>
+                  </div>
+                  <span>${post.cheers || 0} Cheers</span>
+                </button>
+
+                <button class="flex items-center space-x-2 hover:text-oasis-teal transition group">
+                  <div class="p-2 rounded-xl group-hover:bg-oasis-teal/10">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                  </div>
+                  <span>${post.replies || 0} Chat</span>
+                </button>
+
+                <button onclick="sharePost()" class="flex items-center space-x-2 hover:text-oasis-amber transition group">
+                  <div class="p-2 rounded-xl group-hover:bg-oasis-amber/10">
+                    <i data-lucide="share-2" class="w-4 h-4"></i>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    window.filterVibe = function(cat) {
+      activeFilter = cat;
+      const map = {
+        'All': 'vibe-btn-All',
+        '🎵 Music': 'vibe-btn-music',
+        '🧠 Knowledge': 'vibe-btn-knowledge',
+        '🎮 Gaming': 'vibe-btn-gaming',
+        '🍿 Movies & TV': 'vibe-btn-movies'
+      };
+      Object.entries(map).forEach(([c, id]) => {
+        const btn = document.getElementById(id);
+        if (btn) {
+          btn.className = (c === cat) 
+            ? "px-3.5 py-1.5 rounded-full border border-transparent text-black font-bold transition shrink-0 vibe-pill-active"
+            : "px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white transition shrink-0";
+        }
+      });
+      renderFeed();
     };
+
+    window.toggleCheers = function(idx) {
+      const p = window.posts[idx];
+      if (!p) return;
+      p.liked = !p.liked;
+      p.cheers += p.liked ? 1 : -1;
+      if (p.liked) triggerConfetti();
+      localStorage.setItem('oasis_posts', JSON.stringify(window.posts));
+      renderFeed();
+    };
+
+    window.sharePost = function() {
+      navigator.clipboard?.writeText(window.location.href);
+      alert("🌴 Oasis vibe link copied to clipboard!");
+    };
+
+    function escapeHTML(str) {
+      return (str || '').replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    function escapeQuotes(str) {
+      return (str || '').replace(/'/g, "\\'");
+    }
 
     function renderAuthArea() {
       const container = document.getElementById('auth-container');
@@ -847,7 +1167,7 @@
               <div class="hidden xl:block text-left text-xs">
                 <div class="font-display font-bold text-white flex items-center gap-1">
                   <span>${u.displayName}</span>
-                  ${u.isDemo ? '<span class="text-[9px] bg-oasis-teal/20 text-oasis-teal font-mono px-1 rounded">Host</span>' : '<i data-lucide="sparkles" class="w-3.5 h-3.5 text-oasis-teal"></i>'}
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5 text-oasis-teal"></i>
                 </div>
                 <div class="text-oasis-muted">@${u.handle}</div>
               </div>
@@ -880,272 +1200,18 @@
       }
     }
 
-    // Submit New Vibe
-    window.submitPost = async function() {
-      const input = document.getElementById('post-input');
-      const text = input.value.trim();
-      const imageUrlInput = document.getElementById('post-image-url');
-      const imageUrl = imageUrlInput ? imageUrlInput.value.trim() : '';
-      const category = document.getElementById('post-category').value;
-
-      if (!text && !currentAttachedTrack) return;
-
-      const finalImage = currentAttachedTrack ? currentAttachedTrack.image : (imageUrl || null);
-
-      const newPost = {
-        category: category,
-        author: {
-          name: window.currentUser.displayName,
-          handle: window.currentUser.handle,
-          avatar: window.currentUser.photoURL
-        },
-        text: text,
-        image: finalImage,
-        audioPreview: currentAttachedTrack ? currentAttachedTrack.previewUrl : null,
-        timestamp: 'Just now',
-        cheers: 1,
-        replies: 0,
-        liked: true
-      };
-
-      if (isFirebaseReady && db) {
-        try {
-          await addDoc(collection(db, "oasis_posts"), {
-            ...newPost,
-            createdAt: serverTimestamp()
-          });
-          triggerConfetti();
-        } catch (e) {
-          console.error("Firestore write error, falling back locally", e);
-          window.posts.unshift(newPost);
-          renderFeed();
-        }
-      } else {
-        window.posts.unshift(newPost);
-        localStorage.setItem('oasis_posts', JSON.stringify(window.posts));
-        triggerConfetti();
-        renderFeed();
-      }
-
-      input.value = '';
-      if (imageUrlInput) imageUrlInput.value = '';
-      document.getElementById('image-url-container').classList.add('hidden');
-      removeAttachedMedia();
-      document.getElementById('char-counter').innerText = '280';
-      input.style.height = 'auto';
-    };
-
-    // Filter Feed by Vibe
-    window.filterVibe = function(cat) {
-      activeFilter = cat;
-      const buttons = {
-        'All': 'vibe-btn-All',
-        '🎵 Music': 'vibe-btn-music',
-        '🎮 Gaming': 'vibe-btn-gaming',
-        '🍿 Movies & TV': 'vibe-btn-movies',
-        '🎭 Memes & Fun': 'vibe-btn-memes'
-      };
-
-      Object.entries(buttons).forEach(([name, btnId]) => {
-        const btn = document.getElementById(btnId);
-        if (btn) {
-          if (name === cat) {
-            btn.className = "px-3.5 py-1.5 rounded-full border border-transparent text-black font-bold transition shrink-0 vibe-pill-active";
-          } else {
-            btn.className = "px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white transition shrink-0";
-          }
-        }
-      });
-
-      renderFeed();
-    };
-
-    window.handleSearch = function(term) {
-      const q = term.toLowerCase().trim();
-      if (!q) {
-        renderFeed();
-        return;
-      }
-      const filtered = window.posts.filter(p => 
-        p.text.toLowerCase().includes(q) || 
-        p.author.name.toLowerCase().includes(q) ||
-        (p.category && p.category.toLowerCase().includes(q))
-      );
-      renderFeedWithPosts(filtered);
-    };
-
-    function renderFeed() {
-      let filtered = window.posts;
-      if (activeFilter !== 'All') {
-        filtered = window.posts.filter(p => p.category === activeFilter);
-      }
-      renderFeedWithPosts(filtered);
-    }
-
-    function renderFeedWithPosts(postsList) {
-      const container = document.getElementById('feed-container');
-      if (!container) return;
-
-      if (postsList.length === 0) {
-        container.innerHTML = `
-          <div class="p-12 text-center text-oasis-muted space-y-3">
-            <span class="text-4xl">🏝️</span>
-            <div class="font-display font-bold text-lg text-white">No vibes found in this corner yet!</div>
-            <p class="text-xs">Be the first to drop a meme, song, or take here.</p>
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = postsList.map((post, index) => `
-        <article class="p-4 sm:p-5 hover:bg-white/[0.02] transition flex space-x-3.5">
-          <img src="${post.author.avatar}" class="w-11 h-11 rounded-2xl object-cover ring-1 ring-oasis-border shrink-0">
-          
-          <div class="flex-1 min-w-0">
-            <!-- Author & Category Row -->
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-2 truncate text-sm">
-                <span class="font-display font-bold text-white hover:text-oasis-teal transition truncate">${post.author.name}</span>
-                <span class="text-oasis-muted text-xs">@${post.author.handle}</span>
-                <span class="text-oasis-muted text-xs">·</span>
-                <span class="text-oasis-muted text-xs">${post.timestamp}</span>
-              </div>
-              <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-oasis-card border border-oasis-border text-oasis-teal">
-                ${post.category || '🌴 General'}
-              </span>
-            </div>
-
-            <!-- Post Text Content -->
-            <p class="text-sm text-oasis-text mt-2 leading-relaxed whitespace-pre-line font-normal">${escapeHTML(post.text)}</p>
-
-            <!-- Media / Attached Music Preview -->
-            ${post.image ? `
-              <div class="mt-3.5 rounded-2xl overflow-hidden border border-oasis-border/80 max-h-96 shadow-lg relative group">
-                <img src="${post.image}" class="w-full h-full object-cover" onerror="this.style.display='none'">
-                ${post.audioPreview ? `
-                  <button onclick="playInlineAudio('${post.audioPreview}')" class="absolute bottom-3 right-3 py-2 px-3.5 bg-black/80 hover:bg-black text-white text-xs font-bold rounded-xl backdrop-blur-md flex items-center gap-1.5 border border-white/20 transition">
-                    <i data-lucide="play" class="w-3.5 h-3.5 fill-current text-oasis-sunset"></i>
-                    <span>Play Audio Clip</span>
-                  </button>
-                ` : ''}
-              </div>
-            ` : ''}
-
-            <!-- Action Bar (Cheers, Replies, Spark) -->
-            <div class="flex items-center justify-between text-oasis-muted text-xs mt-3.5 max-w-sm">
-              <button onclick="toggleCheers(${index})" class="flex items-center space-x-2 ${post.liked ? 'text-oasis-sunset font-bold' : 'hover:text-oasis-sunset'} transition group">
-                <div class="p-2 rounded-xl group-hover:bg-oasis-sunset/10">
-                  <i data-lucide="heart" class="w-4 h-4 ${post.liked ? 'fill-current' : ''}"></i>
-                </div>
-                <span>${post.cheers || 0} Cheers</span>
-              </button>
-
-              <button class="flex items-center space-x-2 hover:text-oasis-teal transition group">
-                <div class="p-2 rounded-xl group-hover:bg-oasis-teal/10">
-                  <i data-lucide="message-circle" class="w-4 h-4"></i>
-                </div>
-                <span>${post.replies || 0} Chat</span>
-              </button>
-
-              <button onclick="sharePost()" class="flex items-center space-x-2 hover:text-oasis-amber transition group">
-                <div class="p-2 rounded-xl group-hover:bg-oasis-amber/10">
-                  <i data-lucide="share-2" class="w-4 h-4"></i>
-                </div>
-              </button>
-            </div>
-          </div>
-        </article>
-      `).join('');
-
-      lucide.createIcons();
-    }
-
-    window.playInlineAudio = function(url) {
-      const player = document.getElementById('oasis-audio-player');
-      player.src = url;
-      player.play().then(() => {
-        triggerConfetti();
-      }).catch(err => console.warn(err));
-    };
-
-    window.toggleCheers = function(idx) {
-      const p = window.posts[idx];
-      if (!p) return;
-      p.liked = !p.liked;
-      p.cheers += p.liked ? 1 : -1;
-      if (p.liked) triggerConfetti();
-      localStorage.setItem('oasis_posts', JSON.stringify(window.posts));
-      renderFeed();
-    };
-
-    window.sharePost = function() {
-      navigator.clipboard?.writeText(window.location.href);
-      alert("🌴 Oasis vibe link copied to clipboard!");
-    };
-
-    function escapeHTML(str) {
-      return str.replace(/[&<>'"]/g, 
-        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-      );
-    }
-
-    // Modal & Config
-    window.openConfigModal = function() {
-      document.getElementById('config-modal').classList.remove('hidden');
-      const cfg = JSON.parse(localStorage.getItem('pulse_firebase_config') || '{}');
-      document.getElementById('cfg-apiKey').value = cfg.apiKey || '';
-      document.getElementById('cfg-authDomain').value = cfg.authDomain || '';
-      document.getElementById('cfg-projectId').value = cfg.projectId || '';
-      document.getElementById('cfg-appId').value = cfg.appId || '';
-    };
-
-    window.closeConfigModal = function() {
-      document.getElementById('config-modal').classList.add('hidden');
-    };
-
-    window.saveFirebaseConfig = function() {
-      const config = {
-        apiKey: document.getElementById('cfg-apiKey').value.trim(),
-        authDomain: document.getElementById('cfg-authDomain').value.trim(),
-        projectId: document.getElementById('cfg-projectId').value.trim(),
-        appId: document.getElementById('cfg-appId').value.trim()
-      };
-
-      if (!config.apiKey || !config.projectId) {
-        alert("Please enter at least an apiKey and projectId.");
-        return;
-      }
-
-      localStorage.setItem('pulse_firebase_config', JSON.stringify(config));
-      closeConfigModal();
-      window.location.reload();
-    };
-
-    window.clearFirebaseConfig = function() {
-      localStorage.removeItem('pulse_firebase_config');
-      closeConfigModal();
-      window.location.reload();
-    };
-
     window.handleInput = function(el) {
       el.style.height = 'auto';
       el.style.height = el.scrollHeight + 'px';
       const remaining = 280 - el.value.length;
       const counter = document.getElementById('char-counter');
       counter.innerText = remaining;
-      if (remaining < 20) {
-        counter.className = "text-xs font-mono text-red-400 font-bold";
-      } else {
-        counter.className = "text-xs font-mono text-oasis-muted";
-      }
+      counter.className = remaining < 20 ? "text-xs font-mono text-red-400 font-bold" : "text-xs font-mono text-oasis-muted";
     };
 
     window.toggleImageInput = function() {
       const container = document.getElementById('image-url-container');
       container.classList.toggle('hidden');
-      if (!container.classList.contains('hidden')) {
-        document.getElementById('post-image-url').focus();
-      }
     };
 
     window.insertEmoji = function(char) {
@@ -1160,13 +1226,14 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    // Bootstrap everything on load
+    // Bootstrap
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
       initFirebase();
-      initLiveMusicAPI();
-      initGamingGiveawaysAPI();
-      initLiveWeatherAPI();
+      initLiveRadio();
+      fetchDailyKnowledge();
+      initGamingAPI();
+      initWeatherAPI();
       updateComposeAvatar();
     });
   </script>
