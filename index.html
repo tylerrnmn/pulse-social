@@ -60,11 +60,6 @@
     .gradient-sunset {
       background: linear-gradient(135deg, #F43F5E 0%, #F59E0B 100%);
     }
-    .text-gradient-oasis {
-      background: linear-gradient(135deg, #22D3EE 0%, #34D399 50%, #FBBF24 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
     .vibe-pill-active {
       background: linear-gradient(135deg, #06B6D4 0%, #10B981 100%);
       color: #000;
@@ -90,7 +85,7 @@
           </div>
           <div class="hidden xl:block">
             <span class="font-display font-extrabold text-2xl tracking-tight text-white block leading-none">The Oasis</span>
-            <span class="text-[11px] font-mono tracking-widest uppercase text-oasis-teal font-semibold">Good Vibes Only</span>
+            <span class="text-[11px] font-mono tracking-widest uppercase text-oasis-teal font-semibold">Live Social Lounge</span>
           </div>
         </a>
 
@@ -102,19 +97,19 @@
           </a>
           <a href="#" onclick="filterVibe('🎵 Music')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
             <i data-lucide="headphones" class="w-6 h-6 group-hover:text-oasis-sunset transition"></i>
-            <span class="hidden xl:inline">Music & Jams</span>
+            <span class="hidden xl:inline">Live Music API</span>
+          </a>
+          <a href="#" onclick="filterVibe('🎮 Gaming')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
+            <i data-lucide="gamepad-2" class="w-6 h-6 group-hover:text-oasis-purple transition"></i>
+            <span class="hidden xl:inline">Free Games Feed</span>
           </a>
           <a href="#" onclick="filterVibe('🍿 Movies & TV')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
             <i data-lucide="film" class="w-6 h-6 group-hover:text-oasis-amber transition"></i>
             <span class="hidden xl:inline">Cinema & TV</span>
           </a>
-          <a href="#" onclick="filterVibe('🎮 Gaming')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
-            <i data-lucide="gamepad-2" class="w-6 h-6 group-hover:text-oasis-purple transition"></i>
-            <span class="hidden xl:inline">Gaming Den</span>
-          </a>
           <a href="#" onclick="filterVibe('🎭 Memes & Fun')" class="flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group">
             <i data-lucide="sparkles" class="w-6 h-6 group-hover:text-oasis-emerald transition"></i>
-            <span class="hidden xl:inline">Memes & Laughs</span>
+            <span class="hidden xl:inline">Memes & Fun</span>
           </a>
           <button onclick="openConfigModal()" class="w-full flex items-center space-x-4 p-3 rounded-2xl text-oasis-muted hover:text-white hover:bg-white/5 transition group text-left">
             <i data-lucide="settings" class="w-6 h-6"></i>
@@ -143,34 +138,41 @@
       
       <!-- Top Sticky Header Tabs & Vibes -->
       <div class="sticky top-0 z-30 backdrop-blur-xl bg-oasis-bg/85 border-b border-oasis-border/80">
-        <div class="flex items-center justify-between px-4 py-3.5 border-b border-oasis-border/40">
+        <div class="flex items-center justify-between px-4 py-3 border-b border-oasis-border/40">
           <div>
             <h1 class="font-display font-extrabold text-xl text-white flex items-center gap-2">
               <span>The Oasis Lounge</span>
-              <span class="text-xs bg-oasis-teal/10 text-oasis-teal font-mono border border-oasis-teal/30 px-2 py-0.5 rounded-full font-normal">Live</span>
+              <span class="text-[10px] bg-oasis-teal/10 text-oasis-teal font-mono border border-oasis-teal/30 px-2 py-0.5 rounded-full font-bold">Live APIs Connected</span>
             </h1>
-            <p class="text-xs text-oasis-muted">People, entertainment, memes, and good vibes.</p>
           </div>
           
-          <span id="backend-status-pill" class="text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span id="backend-status-text">Demo Lounge</span>
-          </span>
+          <div class="flex items-center space-x-2">
+            <!-- Weather Vibe Badge (Live from Open-Meteo API) -->
+            <div id="live-weather-badge" class="hidden sm:flex items-center space-x-1.5 text-xs font-mono bg-white/5 border border-oasis-border px-3 py-1 rounded-full text-oasis-teal">
+              <span>☀️</span>
+              <span id="weather-text">74°F Miami Vibe</span>
+            </div>
+            
+            <span id="backend-status-pill" class="text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span id="backend-status-text">Lounge Active</span>
+            </span>
+          </div>
         </div>
 
-        <!-- Entertainment / Vibe Category Filter Pills -->
+        <!-- Entertainment Category Filter Pills -->
         <div class="flex items-center space-x-2 px-4 py-2.5 overflow-x-auto custom-scrollbar text-xs">
           <button onclick="filterVibe('All')" id="vibe-btn-All" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-white hover:border-oasis-teal transition shrink-0 vibe-pill-active">
             🌴 All Vibes
           </button>
           <button onclick="filterVibe('🎵 Music')" id="vibe-btn-music" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-sunset transition shrink-0">
-            🎵 Music & Drops
+            🎵 Live Music Previews
+          </button>
+          <button onclick="filterVibe('🎮 Gaming')" id="vibe-btn-gaming" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-purple transition shrink-0">
+            🎮 Free Games Loot
           </button>
           <button onclick="filterVibe('🍿 Movies & TV')" id="vibe-btn-movies" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-amber transition shrink-0">
             🍿 Cinema & Shows
-          </button>
-          <button onclick="filterVibe('🎮 Gaming')" id="vibe-btn-gaming" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-purple transition shrink-0">
-            🎮 Gaming & Clips
           </button>
           <button onclick="filterVibe('🎭 Memes & Fun')" id="vibe-btn-memes" class="px-3.5 py-1.5 rounded-full border border-oasis-border text-oasis-muted hover:text-white hover:border-oasis-emerald transition shrink-0">
             🎭 Memes & Laughs
@@ -185,12 +187,12 @@
         <div class="flex-1">
           <!-- Category Tag Selector -->
           <div class="flex items-center space-x-2 mb-2">
-            <span class="text-[11px] font-mono text-oasis-muted uppercase tracking-wider">Tag your vibe:</span>
+            <span class="text-[11px] font-mono text-oasis-muted uppercase tracking-wider">Category:</span>
             <select id="post-category" class="bg-oasis-bg border border-oasis-border text-oasis-teal text-xs rounded-xl px-2.5 py-1 font-semibold outline-none focus:border-oasis-teal">
               <option value="🌴 General Vibe">🌴 General Vibe</option>
               <option value="🎵 Music">🎵 Music & Drops</option>
-              <option value="🍿 Movies & TV">🍿 Movies & Shows</option>
               <option value="🎮 Gaming">🎮 Gaming</option>
+              <option value="🍿 Movies & TV">🍿 Movies & Shows</option>
               <option value="🎭 Memes & Fun">🎭 Memes & Fun</option>
               <option value="🏖️ Weekend Plans">🏖️ Weekend Plans</option>
             </select>
@@ -198,6 +200,20 @@
 
           <textarea id="post-input" rows="2" placeholder="What's making you smile, laugh, or jam today?! 🌴✨" class="w-full bg-transparent text-white placeholder-oasis-muted text-base resize-none pt-1" oninput="handleInput(this)"></textarea>
           
+          <!-- Optional Attached Media (e.g. from Music API or Image URL) -->
+          <div id="attached-media-preview" class="hidden mb-3 p-3 bg-oasis-bg rounded-2xl border border-oasis-border flex items-center justify-between">
+            <div class="flex items-center space-x-3 truncate">
+              <img id="attached-media-img" src="" class="w-12 h-12 rounded-xl object-cover">
+              <div class="truncate text-xs">
+                <div id="attached-media-title" class="font-bold text-white truncate">Track Title</div>
+                <div id="attached-media-sub" class="text-oasis-muted truncate">Artist Name</div>
+              </div>
+            </div>
+            <button onclick="removeAttachedMedia()" class="p-1 rounded-full text-oasis-muted hover:text-white">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+
           <!-- Image URL Input (Collapsible) -->
           <div id="image-url-container" class="hidden mb-3">
             <input type="url" id="post-image-url" placeholder="Paste an image or GIF URL (e.g. from Giphy, Imgur, or Unsplash)..." class="w-full bg-oasis-bg border border-oasis-border rounded-xl px-3 py-2 text-xs text-white placeholder-oasis-muted focus:border-oasis-teal outline-none">
@@ -208,13 +224,15 @@
             <div class="flex items-center space-x-1.5 text-oasis-teal">
               <button onclick="toggleImageInput()" title="Add Picture/GIF" class="p-2 rounded-xl hover:bg-oasis-teal/10 transition flex items-center space-x-1 text-xs font-semibold">
                 <i data-lucide="image" class="w-4 h-4"></i>
-                <span class="hidden sm:inline">Photo / GIF</span>
+                <span class="hidden sm:inline">Image</span>
               </button>
-              <button onclick="insertEmoji('🎉')" title="Party" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🎉</button>
-              <button onclick="insertEmoji('🔥')" title="Fire" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🔥</button>
-              <button onclick="insertEmoji('🍿')" title="Popcorn" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🍿</button>
-              <button onclick="insertEmoji('🌴')" title="Palm" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🌴</button>
-              <button onclick="insertEmoji('😂')" title="Laugh" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">😂</button>
+              <button onclick="searchMusicModal()" title="Search Live Music to Attach" class="p-2 rounded-xl hover:bg-oasis-sunset/10 text-oasis-sunset transition flex items-center space-x-1 text-xs font-semibold">
+                <i data-lucide="music" class="w-4 h-4"></i>
+                <span class="hidden sm:inline">Add Track</span>
+              </button>
+              <button onclick="insertEmoji('🎉')" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🎉</button>
+              <button onclick="insertEmoji('🔥')" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🔥</button>
+              <button onclick="insertEmoji('🌴')" class="p-2 rounded-xl hover:bg-white/5 transition text-sm">🌴</button>
             </div>
 
             <div class="flex items-center space-x-3">
@@ -235,7 +253,7 @@
 
 
     <!-- ============================================== -->
-    <!-- RIGHT SIDEBAR: WHAT'S POPPING & MUSIC (Col 3) -->
+    <!-- RIGHT SIDEBAR: LIVE APIS & MUSIC PLAYER (Col 3) -->
     <!-- ============================================== -->
     <aside class="hidden lg:block w-80 xl:w-96 p-4 space-y-5 shrink-0">
       
@@ -245,94 +263,118 @@
         <input type="text" id="search-input" oninput="handleSearch(this.value)" placeholder="Search entertainment, music, memes..." class="w-full bg-oasis-card border border-oasis-border/60 focus:border-oasis-teal focus:bg-black/60 text-sm text-white placeholder-oasis-muted rounded-2xl pl-11 pr-4 py-2.5 transition outline-none">
       </div>
 
-      <!-- Oasis Vibe Radio Card -->
+      <!-- ========================================== -->
+      <!-- 1. LIVE OASIS MUSIC PLAYER (Apple iTunes API) -->
+      <!-- ========================================== -->
       <div class="gradient-sunset p-[1px] rounded-3xl shadow-xl shadow-oasis-sunset/10">
-        <div class="bg-oasis-card rounded-3xl p-4 sm:p-5">
+        <div class="bg-oasis-card rounded-3xl p-5">
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs uppercase font-mono font-bold text-oasis-sunset tracking-wider flex items-center gap-1.5">
               <i data-lucide="radio" class="w-4 h-4 animate-pulse"></i>
-              <span>Oasis Lounge Vibe</span>
+              <span>Oasis Live Radio API</span>
             </span>
-            <span class="text-[10px] bg-oasis-sunset/20 text-pink-300 font-mono px-2 py-0.5 rounded-full font-bold">Now Playing</span>
+            <span class="text-[10px] bg-oasis-sunset/20 text-pink-300 font-mono px-2 py-0.5 rounded-full font-bold">iTunes Live</span>
           </div>
-          <h4 class="font-display font-bold text-white text-base">"Midnight Sunset in Miami"</h4>
-          <p class="text-xs text-oasis-muted mb-3">Chill Lo-Fi, Neo-Soul & Tropical Beats</p>
+
+          <!-- Active Track Info -->
+          <div class="flex items-center space-x-3 mb-4">
+            <img id="radio-artwork" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=120&h=120" class="w-14 h-14 rounded-2xl object-cover ring-2 ring-oasis-sunset/30 shadow-md">
+            <div class="truncate flex-1">
+              <h4 id="radio-title" class="font-display font-bold text-white text-sm truncate">Loading Live Track...</h4>
+              <p id="radio-artist" class="text-xs text-oasis-muted truncate">Top Trending Hits</p>
+            </div>
+          </div>
+
+          <!-- Hidden Audio Element -->
+          <audio id="oasis-audio-player" onended="onAudioEnded()"></audio>
+
+          <!-- Controls -->
           <div class="flex items-center space-x-2">
-            <button onclick="triggerConfetti()" class="flex-1 py-2 px-3 bg-white/10 hover:bg-white/15 text-white font-display font-bold text-xs rounded-xl transition flex items-center justify-center space-x-1.5">
-              <span>🎉 Send Cheers</span>
+            <button onclick="toggleAudioPlayback()" id="btn-play-pause" class="flex-1 py-2 px-3 gradient-sunset text-white font-display font-bold text-xs rounded-xl transition flex items-center justify-center space-x-1.5 shadow-md">
+              <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+              <span id="play-btn-text">Listen (30s Preview)</span>
             </button>
-            <button onclick="insertEmoji('🎵')" class="py-2 px-3 bg-white/5 hover:bg-white/10 text-oasis-teal text-xs rounded-xl transition">
-              🎧 Tune In
+            <button onclick="fetchNextLiveTrack()" title="Next Live Song" class="py-2 px-3 bg-white/5 hover:bg-white/10 text-white text-xs rounded-xl border border-white/10 transition">
+              <i data-lucide="skip-forward" class="w-4 h-4"></i>
+            </button>
+            <button onclick="attachCurrentTrackToCompose()" title="Share This Song to Lounge" class="py-2 px-3 bg-oasis-teal/10 hover:bg-oasis-teal/20 text-oasis-teal text-xs rounded-xl border border-oasis-teal/30 transition flex items-center gap-1 font-semibold">
+              <i data-lucide="share" class="w-3.5 h-3.5"></i>
+              <span>Post</span>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Trending Entertainment & Pop Culture -->
+      <!-- ========================================== -->
+      <!-- 2. LIVE GAMING LOOT (GamerPower API) -->
+      <!-- ========================================== -->
       <div class="bg-oasis-card border border-oasis-border/70 rounded-3xl p-5 space-y-4">
-        <h3 class="font-display font-bold text-base text-white flex items-center gap-2">
-          <i data-lucide="flame" class="w-4 h-4 text-oasis-amber"></i>
-          <span>What's Popping in Culture</span>
-        </h3>
+        <div class="flex items-center justify-between">
+          <h3 class="font-display font-bold text-base text-white flex items-center gap-2">
+            <i data-lucide="gift" class="w-4 h-4 text-oasis-purple"></i>
+            <span>Live Free Games & Loot</span>
+          </h3>
+          <span class="text-[10px] font-mono text-oasis-purple bg-oasis-purple/10 px-2 py-0.5 rounded-full font-bold">FreeToPlay API</span>
+        </div>
         
-        <div class="space-y-3 text-xs">
-          <div onclick="filterSearch('#SpiderVerse')" class="hover:bg-white/5 p-2.5 rounded-2xl transition cursor-pointer">
-            <span class="text-oasis-muted text-[11px]">Cinema & Animation · Trending</span>
-            <div class="font-bold text-white text-sm mt-0.5">#BeyondTheSpiderVerse</div>
-            <span class="text-oasis-muted">84.2K people talking</span>
-          </div>
-          <div onclick="filterSearch('#GrandTheftAuto6')" class="hover:bg-white/5 p-2.5 rounded-2xl transition cursor-pointer">
-            <span class="text-oasis-muted text-[11px]">Gaming & Entertainment · Viral</span>
-            <div class="font-bold text-white text-sm mt-0.5">#GTA6ViceCity</div>
-            <span class="text-oasis-muted">142.9K vibes shared</span>
-          </div>
-          <div onclick="filterSearch('#Coachella')" class="hover:bg-white/5 p-2.5 rounded-2xl transition cursor-pointer">
-            <span class="text-oasis-muted text-[11px]">Music & Festivals · Hot</span>
-            <div class="font-bold text-white text-sm mt-0.5">#WeekendHeadliners</div>
-            <span class="text-oasis-muted">38.7K tracks added</span>
-          </div>
+        <div id="gaming-giveaways-container" class="space-y-3 text-xs">
+          <div class="text-oasis-muted animate-pulse">Fetching live gaming freebies...</div>
         </div>
       </div>
 
-      <!-- Fun People to Hang With -->
-      <div class="bg-oasis-card border border-oasis-border/70 rounded-3xl p-5 space-y-4">
-        <h3 class="font-display font-bold text-base text-white flex items-center gap-2">
-          <i data-lucide="users" class="w-4 h-4 text-oasis-teal"></i>
-          <span>People with Great Vibes</span>
-        </h3>
-        
+      <!-- ========================================== -->
+      <!-- 3. LIVE VIBE WEATHER (Open-Meteo API) -->
+      <!-- ========================================== -->
+      <div class="bg-oasis-card border border-oasis-border/70 rounded-3xl p-5 space-y-3">
         <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-3">
-            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&h=100" class="w-10 h-10 rounded-2xl object-cover ring-2 ring-pink-500/30">
-            <div>
-              <div class="font-bold text-xs text-white">Maya Lin 🎨</div>
-              <div class="text-[11px] text-oasis-muted">Film reviewer & animator</div>
-            </div>
-          </div>
-          <button onclick="toggleFollow(this)" class="px-3 py-1.5 gradient-oasis text-black font-display font-bold text-xs rounded-xl hover:opacity-90 transition">
-            Connect
-          </button>
+          <h3 class="font-display font-bold text-base text-white flex items-center gap-2">
+            <i data-lucide="sun" class="w-4 h-4 text-oasis-amber"></i>
+            <span>Oasis Vibe Forecast</span>
+          </h3>
+          <span class="text-[10px] font-mono text-oasis-amber bg-oasis-amber/10 px-2 py-0.5 rounded-full font-bold">Open-Meteo (CC-BY)</span>
         </div>
 
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-3">
-            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=100&h=100" class="w-10 h-10 rounded-2xl object-cover ring-2 ring-emerald-500/30">
-            <div>
-              <div class="font-bold text-xs text-white">Kai Chen 🎧</div>
-              <div class="text-[11px] text-oasis-muted">Indie DJ & vinyl hunter</div>
-            </div>
+        <div class="p-3 bg-black/40 rounded-2xl border border-oasis-border/50 flex items-center justify-between">
+          <div>
+            <div id="vibe-city-name" class="font-bold text-white text-xs">Miami Beach, FL</div>
+            <div id="vibe-verdict" class="text-[11px] text-emerald-400 font-semibold mt-0.5">🌴 9.8/10 Perfect Chill Weather</div>
           </div>
-          <button onclick="toggleFollow(this)" class="px-3 py-1.5 gradient-oasis text-black font-display font-bold text-xs rounded-xl hover:opacity-90 transition">
-            Connect
-          </button>
+          <div id="vibe-temp-display" class="font-display font-extrabold text-2xl text-white">76°F</div>
         </div>
       </div>
 
       <div class="text-[11px] text-oasis-muted space-x-2 px-2 text-center">
-        <span>🌴 The Oasis — Your Escape from the Noise</span>
+        <span>🌴 The Oasis • Powered by Public & Commercial-Friendly Open APIs</span>
       </div>
     </aside>
 
+  </div>
+
+
+  <!-- ============================================== -->
+  <!-- MODAL: MUSIC SEARCH POPUP -->
+  <!-- ============================================== -->
+  <div id="music-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-oasis-card border border-oasis-border w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-oasis-border">
+        <h3 class="font-display font-bold text-lg text-white flex items-center gap-2">
+          <i data-lucide="music" class="w-5 h-5 text-oasis-sunset"></i>
+          <span>Search & Attach a Live Song</span>
+        </h3>
+        <button onclick="closeMusicModal()" class="text-oasis-muted hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="flex gap-2">
+        <input type="text" id="music-search-query" placeholder="Search artist or track (e.g. Drake, Dua Lipa, Lo-Fi)..." class="flex-1 bg-oasis-bg border border-oasis-border rounded-xl px-3 py-2 text-xs text-white focus:border-oasis-sunset outline-none" onkeydown="if(event.key==='Enter') executeMusicSearch()">
+        <button onclick="executeMusicSearch()" class="px-4 py-2 gradient-sunset text-white font-bold text-xs rounded-xl">Search</button>
+      </div>
+
+      <div id="music-search-results" class="max-h-64 overflow-y-auto space-y-2 text-xs custom-scrollbar">
+        <div class="text-oasis-muted text-center py-6">Search any track to attach to your post!</div>
+      </div>
+    </div>
   </div>
 
 
@@ -352,7 +394,7 @@
       </div>
 
       <p class="text-xs text-oasis-muted leading-relaxed">
-        Connect your real Google account and Cloud Firestore. If left blank, you can use <strong>Instant Demo Mode</strong> to test all posting, liking, and animations.
+        Connect your real Google account and Cloud Firestore. If left blank, you can use <strong>Instant Demo Mode</strong> to test all live APIs and interactions.
       </p>
 
       <div class="space-y-3 text-xs">
@@ -394,7 +436,7 @@
 
 
   <!-- ============================================== -->
-  <!-- APPLICATION SCRIPTS & ENTERTAINMENT LOGIC -->
+  <!-- APPLICATION SCRIPTS & LIVE API INTEGRATIONS -->
   <!-- ============================================== -->
   <script type="module">
     // Firebase modular SDK imports
@@ -406,6 +448,12 @@
     let db = null;
     let isFirebaseReady = false;
     let activeFilter = 'All';
+
+    // State for Live Music API
+    let liveRadioTracks = [];
+    let currentRadioTrackIndex = 0;
+    let isPlayingAudio = false;
+    let currentAttachedTrack = null;
 
     // Current User Profile (defaults to demo user in The Oasis)
     window.currentUser = {
@@ -427,54 +475,39 @@
           handle: 'chloevibes',
           avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&h=120'
         },
-        text: 'Just heard the acoustic version of the new single and I have chills all over. Nothing beats live instruments in a world full of algorithms. Put on good headphones and listen to this immediately! 🌴✨',
+        text: 'This live track from the Oasis radio just made my whole afternoon. Put on some good headphones and relax! 🌴✨',
         image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
-        timestamp: '25m ago',
-        cheers: 248,
-        replies: 34,
+        timestamp: '15m ago',
+        cheers: 312,
+        replies: 42,
         liked: false
       },
       {
         id: 'post_2',
-        category: '🍿 Movies & TV',
-        author: {
-          name: 'Marcus Bell 🍿',
-          handle: 'marcus_cinema',
-          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120'
-        },
-        text: 'Unpopular opinion: 90-minute comedy movies need to make a massive comeback in movie theaters. We do not need every film to be a 3-hour grim saga! Give me funny dialogues and good popcorn with friends. Who agrees?',
-        timestamp: '1h ago',
-        cheers: 512,
-        replies: 89,
-        liked: true
-      },
-      {
-        id: 'post_3',
         category: '🎮 Gaming',
         author: {
           name: 'PixelNomad 🕹️',
           handle: 'pixelnomad',
           avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120'
         },
-        text: 'Finally finished building our island sanctuary in cozy co-op mode tonight with the squad! Here is the sunset view from our treehouse balcony 🌅🏝️',
-        image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80',
-        timestamp: '3h ago',
-        cheers: 730,
-        replies: 56,
-        liked: false
+        text: 'Just claimed the free game drop listed on the right sidebar! You love to see 100% free titles without microtransactions. Grab it while it is active!',
+        timestamp: '45m ago',
+        cheers: 620,
+        replies: 78,
+        liked: true
       },
       {
-        id: 'post_4',
-        category: '🎭 Memes & Fun',
+        id: 'post_3',
+        category: '🍿 Movies & TV',
         author: {
-          name: 'Samira Gomez 😂',
-          handle: 'samirag',
-          avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&h=120'
+          name: 'Marcus Bell 🍿',
+          handle: 'marcus_cinema',
+          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120'
         },
-        text: 'Me at 9:00 PM: "I am going to get 8 full hours of sleep tonight!"\nMe at 2:30 AM: Learning how ancient Roman aqueducts were constructed while eating cereal in the dark.',
-        timestamp: '5h ago',
-        cheers: 1240,
-        replies: 104,
+        text: '90-minute comedy movies need to make a massive comeback in movie theaters. Give me funny dialogues and good popcorn with friends. Who agrees?',
+        timestamp: '2h ago',
+        cheers: 840,
+        replies: 112,
         liked: true
       }
     ];
@@ -493,7 +526,225 @@
       }
     };
 
-    // Initialize Firebase
+    // ==========================================
+    // 1. LIVE API: APPLE ITUNES SEARCH API
+    // ==========================================
+    async function initLiveMusicAPI() {
+      try {
+        // Fetch top chill & pop hits from iTunes public API
+        const response = await fetch('https://itunes.apple.com/search?term=tropical+chill+vibes&entity=song&limit=15');
+        const data = await response.json();
+        if (data.results && data.results.length > 0) {
+          liveRadioTracks = data.results;
+          loadRadioTrack(0);
+        }
+      } catch (e) {
+        console.warn("iTunes API fallback", e);
+        // Fallback default track
+        document.getElementById('radio-title').innerText = "Golden Sunset Chill";
+        document.getElementById('radio-artist').innerText = "Oasis Resident DJ";
+      }
+    }
+
+    function loadRadioTrack(index) {
+      if (!liveRadioTracks || liveRadioTracks.length === 0) return;
+      currentRadioTrackIndex = index % liveRadioTracks.length;
+      const track = liveRadioTracks[currentRadioTrackIndex];
+
+      document.getElementById('radio-title').innerText = track.trackName;
+      document.getElementById('radio-artist').innerText = track.artistName;
+      
+      const artwork = track.artworkUrl100 ? track.artworkUrl100.replace('100x100bb', '300x300bb') : 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=120&h=120';
+      document.getElementById('radio-artwork').src = artwork;
+
+      const player = document.getElementById('oasis-audio-player');
+      player.src = track.previewUrl || '';
+      
+      if (isPlayingAudio) {
+        player.play().catch(() => {});
+      }
+    }
+
+    window.toggleAudioPlayback = function() {
+      const player = document.getElementById('oasis-audio-player');
+      const btnText = document.getElementById('play-btn-text');
+
+      if (!player.src) return;
+
+      if (isPlayingAudio) {
+        player.pause();
+        isPlayingAudio = false;
+        btnText.innerText = "Listen (30s Preview)";
+      } else {
+        player.play().then(() => {
+          isPlayingAudio = true;
+          btnText.innerText = "Pause Live Track";
+          triggerConfetti();
+        }).catch(err => {
+          console.warn("Audio play prevented:", err);
+        });
+      }
+    };
+
+    window.onAudioEnded = function() {
+      isPlayingAudio = false;
+      document.getElementById('play-btn-text').innerText = "Listen (30s Preview)";
+      fetchNextLiveTrack();
+    };
+
+    window.fetchNextLiveTrack = function() {
+      loadRadioTrack(currentRadioTrackIndex + 1);
+      if (isPlayingAudio) {
+        document.getElementById('oasis-audio-player').play().catch(() => {});
+      }
+    };
+
+    window.attachCurrentTrackToCompose = function() {
+      if (!liveRadioTracks[currentRadioTrackIndex]) return;
+      const track = liveRadioTracks[currentRadioTrackIndex];
+      attachTrackData({
+        title: track.trackName,
+        artist: track.artistName,
+        image: track.artworkUrl100.replace('100x100bb', '600x600bb'),
+        previewUrl: track.previewUrl
+      });
+      focusCompose();
+    };
+
+    function attachTrackData(trackObj) {
+      currentAttachedTrack = trackObj;
+      document.getElementById('attached-media-preview').classList.remove('hidden');
+      document.getElementById('attached-media-img').src = trackObj.image;
+      document.getElementById('attached-media-title').innerText = trackObj.title;
+      document.getElementById('attached-media-sub').innerText = `by ${trackObj.artist}`;
+      document.getElementById('post-category').value = "🎵 Music";
+      
+      const input = document.getElementById('post-input');
+      if (!input.value) {
+        input.value = `Currently vibing to "${trackObj.title}" by ${trackObj.artist}! Give it a listen 🌴🎧`;
+      }
+    }
+
+    window.removeAttachedMedia = function() {
+      currentAttachedTrack = null;
+      document.getElementById('attached-media-preview').classList.add('hidden');
+    };
+
+    // Modal: Search Music via iTunes API
+    window.searchMusicModal = function() {
+      document.getElementById('music-modal').classList.remove('hidden');
+      document.getElementById('music-search-query').focus();
+    };
+
+    window.closeMusicModal = function() {
+      document.getElementById('music-modal').classList.add('hidden');
+    };
+
+    window.executeMusicSearch = async function() {
+      const q = document.getElementById('music-search-query').value.trim();
+      if (!q) return;
+
+      const container = document.getElementById('music-search-results');
+      container.innerHTML = '<div class="text-oasis-muted text-center py-4">Searching Apple Music database...</div>';
+
+      try {
+        const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(q)}&entity=song&limit=6`);
+        const data = await res.json();
+        
+        if (data.results && data.results.length > 0) {
+          container.innerHTML = data.results.map(t => `
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-oasis-bg border border-oasis-border hover:border-oasis-sunset transition">
+              <div class="flex items-center space-x-2.5 truncate">
+                <img src="${t.artworkUrl100}" class="w-10 h-10 rounded-lg object-cover">
+                <div class="truncate">
+                  <div class="font-bold text-white truncate">${t.trackName}</div>
+                  <div class="text-[11px] text-oasis-muted truncate">${t.artistName}</div>
+                </div>
+              </div>
+              <button onclick="selectMusicTrack('${escapeQuotes(t.trackName)}', '${escapeQuotes(t.artistName)}', '${t.artworkUrl100.replace('100x100bb', '600x600bb')}', '${t.previewUrl}')" class="px-3 py-1 bg-oasis-sunset text-white font-bold text-xs rounded-lg hover:opacity-90">
+                Attach
+              </button>
+            </div>
+          `).join('');
+        } else {
+          container.innerHTML = '<div class="text-oasis-muted text-center py-4">No tracks found. Try another search!</div>';
+        }
+      } catch (err) {
+        container.innerHTML = '<div class="text-red-400 text-center py-4">Error connecting to Music API.</div>';
+      }
+    };
+
+    window.selectMusicTrack = function(title, artist, image, previewUrl) {
+      attachTrackData({ title, artist, image, previewUrl });
+      closeMusicModal();
+      focusCompose();
+    };
+
+    function escapeQuotes(str) {
+      return (str || '').replace(/'/g, "\\'");
+    }
+
+    // ==========================================
+    // 2. LIVE API: GAMERPOWER / FREE-TO-PLAY
+    // ==========================================
+    async function initGamingGiveawaysAPI() {
+      const container = document.getElementById('gaming-giveaways-container');
+      try {
+        // Public Free-To-Play & Giveaway API endpoint
+        const response = await fetch('https://www.freetogame.com/api/games?sort-by=popularity');
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          const topGames = data.slice(0, 3);
+          container.innerHTML = topGames.map(g => `
+            <div class="p-2.5 rounded-2xl bg-black/40 border border-oasis-border/60 hover:border-oasis-purple transition flex items-center space-x-3 cursor-pointer" onclick="window.open('${g.freetogame_profile_url || g.game_url}', '_blank')">
+              <img src="${g.thumbnail}" class="w-14 h-10 rounded-xl object-cover">
+              <div class="truncate flex-1">
+                <div class="font-bold text-white text-xs truncate flex items-center gap-1.5">
+                  <span>${g.title}</span>
+                  <span class="text-[9px] bg-oasis-purple/20 text-purple-300 font-mono px-1 rounded">FREE</span>
+                </div>
+                <div class="text-[10px] text-oasis-muted truncate">${g.genre} • ${g.platform}</div>
+              </div>
+            </div>
+          `).join('');
+        }
+      } catch (e) {
+        // Graceful fallback with top verified titles
+        container.innerHTML = `
+          <div class="p-2.5 rounded-2xl bg-black/40 border border-oasis-border/60 flex items-center space-x-3">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=120&h=80" class="w-12 h-9 rounded-xl object-cover">
+            <div>
+              <div class="font-bold text-white text-xs">Apex Legends: New Season</div>
+              <div class="text-[10px] text-emerald-400">100% Free on Steam & EA</div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // ==========================================
+    // 3. LIVE API: OPEN-METEO WEATHER (CC-BY 4.0)
+    // ==========================================
+    async function initLiveWeatherAPI() {
+      try {
+        // Miami coordinates default for The Oasis aesthetic (25.7617° N, 80.1918° W)
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=25.76&longitude=-80.19&current=temperature_2m,weather_code&temperature_unit=fahrenheit');
+        const data = await res.json();
+        if (data && data.current) {
+          const temp = Math.round(data.current.temperature_2m);
+          document.getElementById('vibe-temp-display').innerText = `${temp}°F`;
+          document.getElementById('weather-text').innerText = `${temp}°F Beach Vibe`;
+          document.getElementById('vibe-verdict').innerText = temp >= 70 ? '🌴 9.8/10 Perfect Chill Weather' : '☕ Cozy 8.5/10 Indoor Lounge Vibe';
+        }
+      } catch (e) {
+        console.warn("Weather API fallback", e);
+      }
+    }
+
+    // ==========================================
+    // 4. FIREBASE AUTH & FIRESTORE INITIALIZATION
+    // ==========================================
     function initFirebase() {
       const storedConfig = localStorage.getItem('pulse_firebase_config');
       if (storedConfig) {
@@ -568,7 +819,6 @@
           alert("Firebase Google Auth Note: " + error.message + "\n\nTip: Add your domain (e.g. localhost or tylerrnmn.github.io) in Firebase Console > Authentication > Settings > Authorized Domains.");
         }
       } else {
-        // Toggle Demo login
         window.currentUser.isLoggedIn = !window.currentUser.isLoggedIn;
         triggerConfetti();
         renderAuthArea();
@@ -585,7 +835,6 @@
       }
     };
 
-    // Render Auth Pill in Left Sidebar
     function renderAuthArea() {
       const container = document.getElementById('auth-container');
       const u = window.currentUser;
@@ -639,7 +888,9 @@
       const imageUrl = imageUrlInput ? imageUrlInput.value.trim() : '';
       const category = document.getElementById('post-category').value;
 
-      if (!text) return;
+      if (!text && !currentAttachedTrack) return;
+
+      const finalImage = currentAttachedTrack ? currentAttachedTrack.image : (imageUrl || null);
 
       const newPost = {
         category: category,
@@ -649,7 +900,8 @@
           avatar: window.currentUser.photoURL
         },
         text: text,
-        image: imageUrl || null,
+        image: finalImage,
+        audioPreview: currentAttachedTrack ? currentAttachedTrack.previewUrl : null,
         timestamp: 'Just now',
         cheers: 1,
         replies: 0,
@@ -678,6 +930,7 @@
       input.value = '';
       if (imageUrlInput) imageUrlInput.value = '';
       document.getElementById('image-url-container').classList.add('hidden');
+      removeAttachedMedia();
       document.getElementById('char-counter').innerText = '280';
       input.style.height = 'auto';
     };
@@ -688,8 +941,8 @@
       const buttons = {
         'All': 'vibe-btn-All',
         '🎵 Music': 'vibe-btn-music',
-        '🍿 Movies & TV': 'vibe-btn-movies',
         '🎮 Gaming': 'vibe-btn-gaming',
+        '🍿 Movies & TV': 'vibe-btn-movies',
         '🎭 Memes & Fun': 'vibe-btn-memes'
       };
 
@@ -707,11 +960,6 @@
       renderFeed();
     };
 
-    window.filterSearch = function(tag) {
-      document.getElementById('search-input').value = tag;
-      handleSearch(tag);
-    };
-
     window.handleSearch = function(term) {
       const q = term.toLowerCase().trim();
       if (!q) {
@@ -726,7 +974,6 @@
       renderFeedWithPosts(filtered);
     };
 
-    // Render Posts
     function renderFeed() {
       let filtered = window.posts;
       if (activeFilter !== 'All') {
@@ -771,16 +1018,21 @@
             <!-- Post Text Content -->
             <p class="text-sm text-oasis-text mt-2 leading-relaxed whitespace-pre-line font-normal">${escapeHTML(post.text)}</p>
 
-            <!-- Optional Image -->
+            <!-- Media / Attached Music Preview -->
             ${post.image ? `
-              <div class="mt-3.5 rounded-2xl overflow-hidden border border-oasis-border/80 max-h-96 shadow-lg">
+              <div class="mt-3.5 rounded-2xl overflow-hidden border border-oasis-border/80 max-h-96 shadow-lg relative group">
                 <img src="${post.image}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                ${post.audioPreview ? `
+                  <button onclick="playInlineAudio('${post.audioPreview}')" class="absolute bottom-3 right-3 py-2 px-3.5 bg-black/80 hover:bg-black text-white text-xs font-bold rounded-xl backdrop-blur-md flex items-center gap-1.5 border border-white/20 transition">
+                    <i data-lucide="play" class="w-3.5 h-3.5 fill-current text-oasis-sunset"></i>
+                    <span>Play Audio Clip</span>
+                  </button>
+                ` : ''}
               </div>
             ` : ''}
 
             <!-- Action Bar (Cheers, Replies, Spark) -->
             <div class="flex items-center justify-between text-oasis-muted text-xs mt-3.5 max-w-sm">
-              <!-- Cheers / Vibe Like Button -->
               <button onclick="toggleCheers(${index})" class="flex items-center space-x-2 ${post.liked ? 'text-oasis-sunset font-bold' : 'hover:text-oasis-sunset'} transition group">
                 <div class="p-2 rounded-xl group-hover:bg-oasis-sunset/10">
                   <i data-lucide="heart" class="w-4 h-4 ${post.liked ? 'fill-current' : ''}"></i>
@@ -788,7 +1040,6 @@
                 <span>${post.cheers || 0} Cheers</span>
               </button>
 
-              <!-- Reply / Chat -->
               <button class="flex items-center space-x-2 hover:text-oasis-teal transition group">
                 <div class="p-2 rounded-xl group-hover:bg-oasis-teal/10">
                   <i data-lucide="message-circle" class="w-4 h-4"></i>
@@ -796,7 +1047,6 @@
                 <span>${post.replies || 0} Chat</span>
               </button>
 
-              <!-- Share Vibe -->
               <button onclick="sharePost()" class="flex items-center space-x-2 hover:text-oasis-amber transition group">
                 <div class="p-2 rounded-xl group-hover:bg-oasis-amber/10">
                   <i data-lucide="share-2" class="w-4 h-4"></i>
@@ -810,7 +1060,14 @@
       lucide.createIcons();
     }
 
-    // Interactive Cheers Toggle
+    window.playInlineAudio = function(url) {
+      const player = document.getElementById('oasis-audio-player');
+      player.src = url;
+      player.play().then(() => {
+        triggerConfetti();
+      }).catch(err => console.warn(err));
+    };
+
     window.toggleCheers = function(idx) {
       const p = window.posts[idx];
       if (!p) return;
@@ -903,21 +1160,13 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    window.toggleFollow = function(btn) {
-      if (btn.innerText === 'Connect') {
-        btn.innerText = 'Connected 🌴';
-        btn.className = "px-3 py-1.5 bg-white/10 text-oasis-teal font-display font-bold text-xs rounded-xl border border-oasis-teal/40 transition";
-        triggerConfetti();
-      } else {
-        btn.innerText = 'Connect';
-        btn.className = "px-3 py-1.5 gradient-oasis text-black font-display font-bold text-xs rounded-xl hover:opacity-90 transition";
-      }
-    };
-
-    // Bootstrap
+    // Bootstrap everything on load
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
       initFirebase();
+      initLiveMusicAPI();
+      initGamingGiveawaysAPI();
+      initLiveWeatherAPI();
       updateComposeAvatar();
     });
   </script>
